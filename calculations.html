@@ -19,28 +19,20 @@
     body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; font-size: 14px; line-height: 1.6; }
     body::before { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.012) 2px, rgba(255,255,255,0.012) 4px); pointer-events: none; z-index: 0; }
     .layout { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
-
-    /* ── SHARED HEADER ── */
     .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 32px; gap: 16px; }
     .header-left {}
     .logo { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 6px; }
     h1 { font-family: var(--mono); font-size: 26px; font-weight: 600; letter-spacing: -0.02em; }
     .header-meta { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin-top: 6px; }
     .status-pill { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 8px 14px; font-family: var(--mono); font-size: 11px; color: var(--text-mid); white-space: nowrap; flex-shrink: 0; }
-
-    /* ── SHARED NAV ── */
     .nav-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
     .nav-link { font-family: var(--mono); font-size: 11px; color: var(--text-dim); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 12px; border: 1px solid var(--border); border-radius: 4px; transition: all 0.15s; }
     .nav-link:hover, .nav-link.active { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
-
-    /* ── SHARED SYS-LINKS ── */
     .sys-links { display: flex; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
     .sys-link { display: flex; align-items: center; gap: 7px; padding: 7px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; font-family: var(--mono); font-size: 11px; color: var(--text-mid); text-decoration: none; transition: all 0.15s; }
     .sys-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
     .sys-link.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
     .sys-link svg { width: 14px; height: 14px; flex-shrink: 0; }
-
-    /* ── PAGE CONTENT ── */
     .review-banner { background: var(--warn-dim); border: 1px solid rgba(245,166,35,0.4); border-radius: 8px; padding: 16px 20px; margin-bottom: 32px; display: flex; gap: 12px; align-items: flex-start; }
     .review-banner-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
     .review-banner-text { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
@@ -88,7 +80,6 @@
 <body>
 <div class="layout">
 
-  <!-- SHARED HEADER -->
   <div class="header">
     <div class="header-left">
       <div class="logo">// bill parsing system</div>
@@ -98,14 +89,13 @@
     <div class="status-pill">Reference</div>
   </div>
 
-  <!-- SHARED NAV -->
   <div class="nav-bar">
     <a href="index.html" class="nav-link">Dashboard</a>
     <a href="how-it-works.html" class="nav-link">How It Works</a>
     <a href="calculations.html" class="nav-link active">Calculations</a>
+    <a href="templates.html" class="nav-link">Templates</a>
   </div>
 
-  <!-- SHARED SYS-LINKS -->
   <div class="sys-links">
     <a id="link-drive" href="#" class="sys-link disabled" target="_blank" title="Available after first run">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 2L2 10.4l4.4 7.6h11.2L22 10.4 17.4 2H6.6zm-.9 15L2 10.4 6.6 3h10.8l4.6 7.4-4.1 7H5.7zm5.3-1.5l-4.1-7.1h8.2l-4.1 7.1z"/></svg>
@@ -125,193 +115,85 @@
     </a>
   </div>
 
-  <!-- PAGE CONTENT -->
   <div class="review-banner">
     <div class="review-banner-icon">⚠️</div>
-    <div class="review-banner-text">
-      <strong>This page requires your review.</strong> The extraction logic and formulas below represent our current understanding of each bill format. Please verify each calculation against your actual bill templates and flag anything that needs to be corrected before finalizing the system.
-    </div>
+    <div class="review-banner-text"><strong>This page requires your review.</strong> The extraction logic and formulas below represent our current understanding of each bill format. Please verify each calculation against your actual bill templates and flag anything that needs to be corrected before finalizing the system.</div>
   </div>
 
-  <!-- ELECTRICITY -->
   <div class="section">
     <div class="section-header"><div class="section-title">Electricity</div><div class="section-line"></div></div>
     <div class="bill-block">
-      <div class="bill-block-header">
-        <span class="bill-type-badge badge-elec">Electricity</span>
-        <span class="bill-block-provider">Toronto Hydro &nbsp;/&nbsp; Alectra Utilities</span>
-      </div>
-      <div class="bill-block-body">
-        <table class="calc-table">
-          <thead><tr><th>Output Field</th><th>Formula / Logic</th><th>Where Claude Looks</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><span class="field-name">usage</span></td>
-              <td><div class="formula-cell"><span class="simple-tag">direct read</span><div class="formula-note">Reads "kWh Used" from the usage table. Do NOT use Adjusted kWh. For Alectra: "Usage" row, not Adjusted Usage.</div></div></td>
-              <td class="source-cell"><div class="source-label">Usage table</div><br>"kWh Used" row. The raw pre-loss-factor figure.</td>
-            </tr>
-            <tr>
-              <td><span class="field-name">demand</span></td>
-              <td><div class="formula-cell"><span class="simple-tag">direct read</span><div class="formula-note">Reads "Demand kW" from the usage table. Do NOT use Adj. kW. Returns null for General Service &lt;50kW accounts.</div></div></td>
-              <td class="source-cell"><div class="source-label">Usage table</div><br>"Demand kW" row (Toronto Hydro) or "Demand kW" column (Alectra).</td>
-            </tr>
-            <tr>
-              <td><span class="field-name">cost</span></td>
-              <td><div class="formula-cell"><span class="formula-var">Total Electricity Charges</span><br><span class="formula-op">+</span> <span class="formula-var">HST</span><br><span class="formula-op">−</span> <span class="formula-var">Ontario Electricity Rebate</span><br><span class="formula-op">=</span> <span class="formula-result">cost</span><div class="formula-note">Rebate shows as "CR" (credit) and is subtracted. HST and rebate may be on page 2 or 3.</div></div></td>
-              <td class="source-cell"><div class="source-label">Charge summary (may span pages)</div><br>"Total Electricity Charges," "HST," and "Ontario Electricity Rebate CR."</td>
-            </tr>
-            <tr>
-              <td><span class="field-name">demandCost</span></td>
-              <td><div class="formula-cell"><span class="formula-var">Distribution Charges</span><br><span class="formula-op">+</span> <span class="formula-var">Transmission Network Charges</span><br><span class="formula-op">+</span> <span class="formula-var">Transmission Connection Charges</span><br><span class="formula-op">−</span> <span class="formula-var">Transformer Allowance</span> <em style="font-size:11px;color:var(--text-dim)">(if present)</em><br><span class="formula-op">=</span> <span class="formula-result">demandCost</span><div class="formula-note">For &lt;50kW accounts: Delivery total only. Null if demand not applicable.</div></div></td>
-              <td class="source-cell"><div class="source-label">Charge detail section</div><br>Each delivery/transmission line item. Transformer Allowance only on select large accounts.</td>
-            </tr>
-            <tr>
-              <td><span class="field-name">estimation</span></td>
-              <td><div class="formula-cell"><span class="simple-tag">direct read</span><div class="formula-note">"Yes" if estimated, "No" if actual. Checks Read Type column and any ESTIMATE label.</div></div></td>
-              <td class="source-cell"><div class="source-label">Usage table</div><br>"Read Type" column, plus any "ESTIMATE" label near meter reading values.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <div class="bill-block-header"><span class="bill-type-badge badge-elec">Electricity</span><span class="bill-block-provider">Toronto Hydro &nbsp;/&nbsp; Alectra Utilities</span></div>
+      <table class="calc-table">
+        <thead><tr><th>Output Field</th><th>Formula / Logic</th><th>Where Claude Looks</th></tr></thead>
+        <tbody>
+          <tr><td><span class="field-name">usage</span></td><td><div class="formula-cell"><span class="simple-tag">direct read</span><div class="formula-note">Reads "kWh Used" from the usage table. Do NOT use Adjusted kWh. For Alectra: "Usage" row, not Adjusted Usage.</div></div></td><td class="source-cell"><div class="source-label">Usage table</div><br>"kWh Used" row. The raw pre-loss-factor figure.</td></tr>
+          <tr><td><span class="field-name">demand</span></td><td><div class="formula-cell"><span class="simple-tag">direct read</span><div class="formula-note">Reads "Demand kW" from the usage table. Do NOT use Adj. kW. Returns null for General Service &lt;50kW accounts.</div></div></td><td class="source-cell"><div class="source-label">Usage table</div><br>"Demand kW" row (Toronto Hydro) or "Demand kW" column (Alectra).</td></tr>
+          <tr><td><span class="field-name">cost</span></td><td><div class="formula-cell"><span class="formula-var">Total Electricity Charges</span><br><span class="formula-op">+</span> <span class="formula-var">HST</span><br><span class="formula-op">−</span> <span class="formula-var">Ontario Electricity Rebate</span><br><span class="formula-op">=</span> <span class="formula-result">cost</span><div class="formula-note">Rebate shows as "CR" and is subtracted. HST and rebate may be on page 2 or 3. Each component is stored separately in the Audit Log for formula verification.</div></div></td><td class="source-cell"><div class="source-label">Charge summary (may span pages)</div><br>"Total Electricity Charges," "HST," and "Ontario Electricity Rebate CR."</td></tr>
+          <tr><td><span class="field-name">demandCost</span></td><td><div class="formula-cell"><span class="formula-var">Distribution Charges</span><br><span class="formula-op">+</span> <span class="formula-var">Transmission Network Charges</span><br><span class="formula-op">+</span> <span class="formula-var">Transmission Connection Charges</span><br><span class="formula-op">−</span> <span class="formula-var">Transformer Allowance</span> <em style="font-size:11px;color:var(--text-dim)">(if present)</em><br><span class="formula-op">=</span> <span class="formula-result">demandCost</span><div class="formula-note">For &lt;50kW accounts: Delivery total only. Null if demand not applicable.</div></div></td><td class="source-cell"><div class="source-label">Charge detail section</div><br>Each delivery/transmission line item. Transformer Allowance only on select large accounts.</td></tr>
+          <tr><td><span class="field-name">estimation</span></td><td><div class="formula-cell"><span class="simple-tag">direct read</span><div class="formula-note">"Yes" if estimated, "No" if actual. Checks Read Type column and any ESTIMATE label.</div></div></td><td class="source-cell"><div class="source-label">Usage table</div><br>"Read Type" column, plus any "ESTIMATE" label near meter reading values.</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <!-- NATURAL GAS -->
   <div class="section">
     <div class="section-header"><div class="section-title">Natural Gas</div><div class="section-line"></div></div>
     <div class="bill-block">
-      <div class="bill-block-header">
-        <span class="bill-type-badge badge-gas">Natural Gas</span>
-        <span class="bill-block-provider">Enbridge Gas</span>
-      </div>
-      <div class="bill-block-body">
-        <table class="calc-table">
-          <thead><tr><th>Output Field</th><th>Formula / Logic</th><th>Where Claude Looks</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><span class="field-name gas-field">usage</span></td>
-              <td><div class="formula-cell"><span class="simple-tag gas-tag">direct read</span><div class="formula-note">Reads the m³ figure from "You used X m³." No calculation.</div></div></td>
-              <td class="source-cell"><div class="source-label">Page 1 summary</div><br>"You used X m³ of natural gas."</td>
-            </tr>
-            <tr>
-              <td><span class="field-name gas-field">cost</span></td>
-              <td><div class="formula-cell"><span class="simple-tag gas-tag">direct read</span><br><br><span class="formula-var">"This Cost You" on page 1</span><br><span class="formula-op">=</span> <span class="formula-result gas-result">cost</span><div class="formula-note">Already includes HST. Take as-is. Do NOT use Total Amount or Amount Due.</div></div></td>
-              <td class="source-cell"><div class="source-label">Page 1</div><br>"This Cost You" label. Includes all taxes.</td>
-            </tr>
-            <tr>
-              <td><span class="field-name gas-field">estimation</span></td>
-              <td><div class="formula-cell"><span class="simple-tag gas-tag">direct read</span><div class="formula-note">Checks meter reading label for "Estimated" vs "Actual."</div></div></td>
-              <td class="source-cell"><div class="source-label">Meter reading section</div><br>"Actual Read" or "Estimated Read" label.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <div class="bill-block-header"><span class="bill-type-badge badge-gas">Natural Gas</span><span class="bill-block-provider">Enbridge Gas</span></div>
+      <table class="calc-table">
+        <thead><tr><th>Output Field</th><th>Formula / Logic</th><th>Where Claude Looks</th></tr></thead>
+        <tbody>
+          <tr><td><span class="field-name gas-field">usage</span></td><td><div class="formula-cell"><span class="simple-tag gas-tag">direct read</span><div class="formula-note">Reads the m³ figure from "You used X m³." No calculation.</div></div></td><td class="source-cell"><div class="source-label">Page 1 summary</div><br>"You used X m³ of natural gas."</td></tr>
+          <tr><td><span class="field-name gas-field">cost</span></td><td><div class="formula-cell"><span class="simple-tag gas-tag">direct read</span><br><br><span class="formula-var">"This Cost You" on page 1</span><br><span class="formula-op">=</span> <span class="formula-result gas-result">cost</span><div class="formula-note">Already includes HST. Take as-is. Do NOT use Total Amount or Amount Due.</div></div></td><td class="source-cell"><div class="source-label">Page 1</div><br>"This Cost You" label. Includes all taxes.</td></tr>
+          <tr><td><span class="field-name gas-field">estimation</span></td><td><div class="formula-cell"><span class="simple-tag gas-tag">direct read</span><div class="formula-note">Checks meter reading label for "Estimated" vs "Actual."</div></div></td><td class="source-cell"><div class="source-label">Meter reading section</div><br>"Actual Read" or "Estimated Read" label.</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <!-- WATER -->
   <div class="section">
     <div class="section-header"><div class="section-title">Water</div><div class="section-line"></div></div>
 
     <div class="bill-block" style="margin-bottom:16px">
-      <div class="bill-block-header">
-        <span class="bill-type-badge badge-water">Water</span>
-        <span class="bill-block-provider">Toronto Water &nbsp;/&nbsp; Revenue Services</span>
-      </div>
-      <div class="bill-block-body">
-        <table class="calc-table">
-          <thead><tr><th>Output Field</th><th>Formula / Logic</th><th>Where Claude Looks</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><span class="field-name water-field">usage</span></td>
-              <td><div class="formula-cell"><span class="simple-tag water-tag">direct read</span><div class="formula-note">Reads either "Consumption" or "Total Consumption" in m³ depending on bill format.</div></div></td>
-              <td class="source-cell"><div class="source-label">Current billing section</div><br>Consumption or Total Consumption value in m³.</td>
-            </tr>
-            <tr>
-              <td><span class="field-name water-field">cost</span></td>
-              <td><div class="formula-cell"><span class="simple-tag water-tag">direct read</span><br><br><span class="formula-var">Water/Sewer Services — current billing</span><br><span class="formula-op">=</span> <span class="formula-result water-result">cost</span></div></td>
-              <td class="source-cell"><div class="source-label">Current billing section</div><br>"Water/Sewer Services" current amount (not account balance or arrears).</td>
-            </tr>
-            <tr>
-              <td><span class="field-name water-field">dates</span></td>
-              <td><div class="formula-cell"><span class="simple-tag water-tag">direct read</span><div class="formula-note">Either "Service From/To" or "Previous/Current Date" depending on bill format.</div></div></td>
-              <td class="source-cell"><div class="source-label">Service period section</div><br>Two date fields defining the billing period. Label varies by bill type.</td>
-            </tr>
-            <tr>
-              <td><span class="field-name water-field">estimation</span></td>
-              <td><div class="formula-cell"><span class="simple-tag water-tag">direct read</span><div class="formula-note">Checks Messages section and Read Type column.</div></div></td>
-              <td class="source-cell"><div class="source-label">Messages section</div><br>"estimated water bill" text, or Read Type column in consumption history.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <div class="bill-block-header"><span class="bill-type-badge badge-water">Water</span><span class="bill-block-provider">Toronto Water &nbsp;/&nbsp; Revenue Services</span></div>
+      <table class="calc-table">
+        <thead><tr><th>Output Field</th><th>Formula / Logic</th><th>Where Claude Looks</th></tr></thead>
+        <tbody>
+          <tr><td><span class="field-name water-field">usage</span></td><td><div class="formula-cell"><span class="simple-tag water-tag">direct read</span><div class="formula-note">Reads either "Consumption" or "Total Consumption" in m³ depending on bill format.</div></div></td><td class="source-cell"><div class="source-label">Current billing section</div><br>Consumption or Total Consumption value in m³.</td></tr>
+          <tr><td><span class="field-name water-field">cost</span></td><td><div class="formula-cell"><span class="simple-tag water-tag">direct read</span><br><br><span class="formula-var">Water/Sewer Services — current billing</span><br><span class="formula-op">=</span> <span class="formula-result water-result">cost</span></div></td><td class="source-cell"><div class="source-label">Current billing section</div><br>"Water/Sewer Services" current amount (not account balance or arrears).</td></tr>
+          <tr><td><span class="field-name water-field">dates</span></td><td><div class="formula-cell"><span class="simple-tag water-tag">direct read</span><div class="formula-note">Either "Service From/To" or "Previous/Current Date" depending on bill format.</div></div></td><td class="source-cell"><div class="source-label">Service period section</div><br>Two date fields defining the billing period. Label varies by bill type.</td></tr>
+          <tr><td><span class="field-name water-field">estimation</span></td><td><div class="formula-cell"><span class="simple-tag water-tag">direct read</span><div class="formula-note">Checks Messages section and Read Type column.</div></div></td><td class="source-cell"><div class="source-label">Messages section</div><br>"estimated water bill" text, or Read Type column in consumption history.</td></tr>
+        </tbody>
+      </table>
     </div>
 
     <div class="bill-block" style="margin-bottom:16px">
-      <div class="bill-block-header">
-        <span class="bill-type-badge badge-water">Water</span>
-        <span class="bill-block-provider">Alectra Water &amp; Wastewater</span>
-      </div>
-      <div class="bill-block-body">
-        <table class="calc-table">
-          <thead><tr><th>Output Field</th><th>Formula / Logic</th><th>Where Claude Looks</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><span class="field-name water-field">usage</span></td>
-              <td><div class="formula-cell"><span class="formula-var">HM3 meter row</span><br><span class="formula-op">+</span> <span class="formula-var">LM3 meter row</span><br><span class="formula-op">=</span> <span class="formula-result water-result">usage</span><div class="formula-note">Two meter rows summed. HM3 = high meter, LM3 = low meter.</div></div></td>
-              <td class="source-cell"><div class="source-label">Meter table</div><br>HM3 and LM3 rows. Both summed for total m³.</td>
-            </tr>
-            <tr>
-              <td><span class="field-name water-field">cost</span></td>
-              <td><div class="formula-cell"><span class="formula-var">Total Water Charges</span><br><span class="formula-op">+</span> <span class="formula-var">Total Wastewater Charges</span><br><span class="formula-op">=</span> <span class="formula-result water-result">cost</span></div></td>
-              <td class="source-cell"><div class="source-label">Charge summary</div><br>"Total Water and Wastewater Charges" or two separate line items summed.</td>
-            </tr>
-            <tr>
-              <td><span class="field-name water-field">estimation</span></td>
-              <td><div class="formula-cell"><span class="simple-tag water-tag">direct read</span><div class="formula-note">Read Type column per meter row.</div></div></td>
-              <td class="source-cell"><div class="source-label">Meter table</div><br>"Read Type" column: "Actual" vs "Estimate."</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <div class="bill-block-header"><span class="bill-type-badge badge-water">Water</span><span class="bill-block-provider">Alectra Water &amp; Wastewater</span></div>
+      <table class="calc-table">
+        <thead><tr><th>Output Field</th><th>Formula / Logic</th><th>Where Claude Looks</th></tr></thead>
+        <tbody>
+          <tr><td><span class="field-name water-field">usage</span></td><td><div class="formula-cell"><span class="formula-var">HM3 meter row</span><br><span class="formula-op">+</span> <span class="formula-var">LM3 meter row</span><br><span class="formula-op">=</span> <span class="formula-result water-result">usage</span><div class="formula-note">Two meter rows summed. HM3 = high meter, LM3 = low meter.</div></div></td><td class="source-cell"><div class="source-label">Meter table</div><br>HM3 and LM3 rows. Both summed for total m³.</td></tr>
+          <tr><td><span class="field-name water-field">cost</span></td><td><div class="formula-cell"><span class="formula-var">Total Water Charges</span><br><span class="formula-op">+</span> <span class="formula-var">Total Wastewater Charges</span><br><span class="formula-op">=</span> <span class="formula-result water-result">cost</span></div></td><td class="source-cell"><div class="source-label">Charge summary</div><br>"Total Water and Wastewater Charges" or two separate line items summed.</td></tr>
+          <tr><td><span class="field-name water-field">estimation</span></td><td><div class="formula-cell"><span class="simple-tag water-tag">direct read</span><div class="formula-note">Read Type column per meter row.</div></div></td><td class="source-cell"><div class="source-label">Meter table</div><br>"Read Type" column: "Actual" vs "Estimate."</td></tr>
+        </tbody>
+      </table>
     </div>
 
     <div class="bill-block">
-      <div class="bill-block-header">
-        <span class="bill-type-badge badge-water">Water</span>
-        <span class="bill-block-provider">Region of Peel Water Services</span>
-      </div>
-      <div class="bill-block-body">
-        <table class="calc-table">
-          <thead><tr><th>Output Field</th><th>Formula / Logic</th><th>Where Claude Looks</th></tr></thead>
-          <tbody>
-            <tr>
-              <td><span class="field-name water-field">usage</span></td>
-              <td><div class="formula-cell"><span class="simple-tag water-tag">direct read</span><div class="formula-note">Single consumption value in m³ from the Current Bill section.</div></div></td>
-              <td class="source-cell"><div class="source-label">Current Bill section</div><br>Consumption value in m³.</td>
-            </tr>
-            <tr>
-              <td><span class="field-name water-field">dates</span></td>
-              <td><div class="formula-cell"><span class="simple-tag water-tag">direct read</span><div class="formula-note">In the Consumption History table: SECOND row under Read Date = startDate, FIRST row = endDate. Counter-intuitive order.</div></div></td>
-              <td class="source-cell"><div class="source-label">Consumption History table</div><br>Read Date column. Row 2 = start, Row 1 = end.</td>
-            </tr>
-            <tr>
-              <td><span class="field-name water-field">cost</span></td>
-              <td><div class="formula-cell"><span class="formula-var">Water Charges</span><br><span class="formula-op">+</span> <span class="formula-var">Wastewater Charges</span><br><span class="formula-op">+</span> <span class="formula-var">Stormwater Charges</span><br><span class="formula-op">=</span> <span class="formula-result water-result">cost</span><div class="formula-note">Three separate line items summed.</div></div></td>
-              <td class="source-cell"><div class="source-label">Current Bill section</div><br>Water Charges, Wastewater Charges, and Stormwater Charges.</td>
-            </tr>
-            <tr>
-              <td><span class="field-name water-field">estimation</span></td>
-              <td><div class="formula-cell"><span class="simple-tag water-tag">direct read</span></div></td>
-              <td class="source-cell"><div class="source-label">Meter reading section</div><br>"Read Type" column: "Actual" vs "Estimate."</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <div class="bill-block-header"><span class="bill-type-badge badge-water">Water</span><span class="bill-block-provider">Region of Peel Water Services</span></div>
+      <table class="calc-table">
+        <thead><tr><th>Output Field</th><th>Formula / Logic</th><th>Where Claude Looks</th></tr></thead>
+        <tbody>
+          <tr><td><span class="field-name water-field">usage</span></td><td><div class="formula-cell"><span class="simple-tag water-tag">direct read</span><div class="formula-note">Single consumption value in m³ from the Current Bill section.</div></div></td><td class="source-cell"><div class="source-label">Current Bill section</div><br>Consumption value in m³.</td></tr>
+          <tr><td><span class="field-name water-field">dates</span></td><td><div class="formula-cell"><span class="simple-tag water-tag">direct read</span><div class="formula-note">In the Consumption History table: SECOND row under Read Date = startDate, FIRST row = endDate. Counter-intuitive order.</div></div></td><td class="source-cell"><div class="source-label">Consumption History table</div><br>Read Date column. Row 2 = start, Row 1 = end.</td></tr>
+          <tr><td><span class="field-name water-field">cost</span></td><td><div class="formula-cell"><span class="formula-var">Water Charges</span><br><span class="formula-op">+</span> <span class="formula-var">Wastewater Charges</span><br><span class="formula-op">+</span> <span class="formula-var">Stormwater Charges</span><br><span class="formula-op">=</span> <span class="formula-result water-result">cost</span><div class="formula-note">Three separate line items summed.</div></div></td><td class="source-cell"><div class="source-label">Current Bill section</div><br>Water Charges, Wastewater Charges, and Stormwater Charges.</td></tr>
+          <tr><td><span class="field-name water-field">estimation</span></td><td><div class="formula-cell"><span class="simple-tag water-tag">direct read</span></div></td><td class="source-cell"><div class="source-label">Meter reading section</div><br>"Read Type" column: "Actual" vs "Estimate."</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <!-- NOTES -->
   <div class="section">
     <div class="section-header"><div class="section-title">Notes &amp; Edge Cases</div><div class="section-line"></div></div>
     <div class="notes-grid">
