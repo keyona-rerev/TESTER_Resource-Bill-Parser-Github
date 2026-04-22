@@ -226,5 +226,20 @@
       "filename": "Copy of Enbridge Sample 1a.pdf",
       "seenAt": "2026-04-22T22:40:26.854Z"
     }
+  ],
+  "Toronto Hydro-Electric System Limited": [
+    {
+      "provider": "Toronto Hydro-Electric System Limited",
+      "billType": "Electricity",
+      "layoutVariant": "tiered_pricing",
+      "layoutNotes": null,
+      "hasHST": true,
+      "hasRebate": true,
+      "hasDemand": true,
+      "hasTotalElecCharges": true,
+      "estimation": "No",
+      "filename": "Copy of Toronto Hydro Sample 1.pdf",
+      "seenAt": "2026-04-22T22:40:43.101Z"
+    }
   ]
 }
