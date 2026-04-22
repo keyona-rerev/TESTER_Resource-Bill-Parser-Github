@@ -183,5 +183,20 @@
       "filename": "Alectra (Electricty) Sample 1a.pdf",
       "seenAt": "2026-04-22T22:32:53.817Z"
     }
+  ],
+  "Toronto Water & Solid Waste Management Services": [
+    {
+      "provider": "Toronto Water & Solid Waste Management Services",
+      "billType": "Water",
+      "layoutVariant": "estimated_read",
+      "layoutNotes": "Bill notes it is an estimated water bill based on prior water usage. Has both Large and Small meter readings that sum to total consumption.",
+      "hasHST": false,
+      "hasRebate": false,
+      "hasDemand": false,
+      "hasTotalElecCharges": false,
+      "estimation": "Yes",
+      "filename": "Copy of Toronto Water Sample 2a.pdf",
+      "seenAt": "2026-04-22T22:39:29.664Z"
+    }
   ]
 }
