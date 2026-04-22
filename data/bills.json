@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-04-22T22:33:20.901Z",
+  "lastUpdated": "2026-04-22T22:42:05.541Z",
   "lastFileAdded": {
-    "filename": "Region of Peel Water Sample 1.pdf",
-    "timestamp": "2026-04-22T21:27:12.231Z",
-    "driveLink": "https://drive.google.com/file/d/1AXyxDGjr9NPzVaQPCFFEz5PVbxv6eG1W/view?usp=drivesdk"
+    "filename": "Copy of Toronto Water Sample 1a.pdf",
+    "timestamp": "2026-04-22T22:37:16.913Z",
+    "driveLink": "https://drive.google.com/file/d/1C73A_SZhYFVXtQ1H0AgO4ZoeA3WgwpEQ/view?usp=drivesdk"
   },
   "links": {
     "driveFolder": "https://drive.google.com/drive/folders/1s3PIbHoz2IPwjw7dGtVMO0C3qLhn6KRI",
@@ -12,13 +12,94 @@
     "dashboard": "https://keyona-rerev.github.io/TESTER_Resource-Bill-Parser-Github"
   },
   "summary": {
-    "totalProcessed": 2,
-    "electricity": 1,
-    "naturalGas": 0,
-    "water": 1,
-    "pendingReview": 0
+    "totalProcessed": 10,
+    "electricity": 4,
+    "naturalGas": 2,
+    "water": 4,
+    "pendingReview": 1
   },
   "recentBills": [
+    {
+      "rowNumber": 11,
+      "filename": "Copy of Toronto Water Sample 1a.pdf",
+      "dateProcessed": "2026-04-22T22:42:04.011Z",
+      "billType": "Water",
+      "property": "2000 ISLINGTON AVE",
+      "outcome": "PROCESSED",
+      "driveLink": "https://drive.google.com/file/d/1C73A_SZhYFVXtQ1H0AgO4ZoeA3WgwpEQ/view?usp=drivesdk"
+    },
+    {
+      "rowNumber": 10,
+      "filename": "Copy of Toronto Hydro Sample 4.pdf",
+      "dateProcessed": "2026-04-22T22:41:51.199Z",
+      "billType": "Electricity",
+      "property": "MTCC 1349",
+      "outcome": "PROCESSED",
+      "driveLink": "https://drive.google.com/file/d/1uYzpegeF8RJoQU-JEuHb1GcAmlk1Qi4K/view?usp=drivesdk"
+    },
+    {
+      "rowNumber": 9,
+      "filename": "Copy of Toronto Hydro Sample 3.pdf",
+      "dateProcessed": "2026-04-22T22:41:26.964Z",
+      "billType": "Electricity",
+      "property": "TSCC 2037",
+      "outcome": "PROCESSED",
+      "driveLink": "https://drive.google.com/file/d/1uP4jEXPb5Pgr_0x6iqlYSNA78WzOtTuj/view?usp=drivesdk"
+    },
+    {
+      "rowNumber": 8,
+      "filename": "Copy of Enbridge Sample 1b.pdf",
+      "dateProcessed": "2026-04-22T22:41:03.677Z",
+      "billType": "NaturalGas",
+      "property": "MTCC 678",
+      "outcome": "PROCESSED",
+      "driveLink": "https://drive.google.com/file/d/1thUVZ0CSjCYN9nlRrYuhN2rxDiOP6mvg/view?usp=drivesdk"
+    },
+    {
+      "rowNumber": 7,
+      "filename": "Copy of Toronto Hydro Sample 1.pdf",
+      "dateProcessed": "2026-04-22T22:40:54.596Z",
+      "billType": "Electricity",
+      "property": "MTCC 570",
+      "outcome": "PROCESSED",
+      "driveLink": "https://drive.google.com/file/d/1s7cG9qH_v8UP2RRSIxqwYA8TKnZXWEl-/view?usp=drivesdk"
+    },
+    {
+      "rowNumber": 6,
+      "filename": "Copy of Enbridge Sample 1a.pdf",
+      "dateProcessed": "2026-04-22T22:40:31.979Z",
+      "billType": "NaturalGas",
+      "property": "MTCC 570",
+      "outcome": "PROCESSED",
+      "driveLink": "https://drive.google.com/file/d/1PIU2yd67_hERMpwgGg8QzS6bZk5mGoVr/view?usp=drivesdk"
+    },
+    {
+      "rowNumber": 5,
+      "filename": "Copy of Alectra (Water) Sample 1a.pdf",
+      "dateProcessed": "2026-04-22T22:40:21.381Z",
+      "billType": "Water",
+      "property": "YRCC 794",
+      "outcome": "PROCESSED",
+      "driveLink": "https://drive.google.com/file/d/1JBG46acw8LQPCZIagj3ZyeedMFzb513E/view?usp=drivesdk"
+    },
+    {
+      "rowNumber": 4,
+      "filename": "Copy of Toronto Hydro Sample 2.pdf",
+      "dateProcessed": "2026-04-22T22:40:07.659Z",
+      "billType": "Electricity",
+      "property": "MTCC 570",
+      "outcome": "REVIEW_QUEUE",
+      "driveLink": "https://drive.google.com/file/d/1E8LLK9foYlypkNH7AeoX1sol_htLPOq4/view?usp=drivesdk"
+    },
+    {
+      "rowNumber": 3,
+      "filename": "Copy of Toronto Water Sample 2a.pdf",
+      "dateProcessed": "2026-04-22T22:39:38.189Z",
+      "billType": "Water",
+      "property": "MTCC 678",
+      "outcome": "PROCESSED",
+      "driveLink": "https://drive.google.com/file/d/1ABLdYcjwZBHYPo-3lqvuEeN5zEl_NDTN/view?usp=drivesdk"
+    },
     {
       "rowNumber": 2,
       "filename": "Region of Peel Water Sample 1.pdf",
@@ -38,5 +119,14 @@
       "driveLink": "https://drive.google.com/file/d/1HTFfWUZB3qNPGkQap7o4eTE2JSLPAJuK/view?usp=drivesdk"
     }
   ],
-  "reviewQueue": []
+  "reviewQueue": [
+    {
+      "rowNumber": 1,
+      "filename": "Copy of Toronto Hydro Sample 2.pdf",
+      "dateFlagged": "2026-04-22T22:40:07.005Z",
+      "billType": "Electricity",
+      "reason": "Disagreement: demand: Pass1=302.849 Pass2=281.249",
+      "driveLink": "https://drive.google.com/file/d/1E8LLK9foYlypkNH7AeoX1sol_htLPOq4/view?usp=drivesdk"
+    }
+  ]
 }
