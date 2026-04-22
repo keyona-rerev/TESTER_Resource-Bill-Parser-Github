@@ -12,6 +12,12 @@
     "water": 0,
     "pendingReview": 1
   },
+  "links": {
+    "driveFolder": "https://drive.google.com/drive/folders/1HTFfWUZB3qNPGkQap7o4eTE2JSLPAJuK",
+    "googleSheet": "",
+    "githubRepo": "https://github.com/keyona-rerev/TESTER_Resource-Bill-Parser-Github",
+    "dashboard": "https://keyona-rerev.github.io/TESTER_Resource-Bill-Parser-Github"
+  },
   "recentBills": [
     {
       "rowNumber": 2,
