@@ -211,5 +211,20 @@
       "filename": "Copy of Toronto Water Sample 2a.pdf",
       "seenAt": "2026-04-22T22:39:29.664Z"
     }
+  ],
+  "Enbridge Gas Inc.": [
+    {
+      "provider": "Enbridge Gas Inc.",
+      "billType": "NaturalGas",
+      "layoutVariant": "standard",
+      "layoutNotes": null,
+      "hasHST": false,
+      "hasRebate": false,
+      "hasDemand": false,
+      "hasTotalElecCharges": false,
+      "estimation": "No",
+      "filename": "Copy of Enbridge Sample 1a.pdf",
+      "seenAt": "2026-04-22T22:40:26.854Z"
+    }
   ]
 }
