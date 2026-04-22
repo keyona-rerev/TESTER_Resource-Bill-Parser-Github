@@ -25,7 +25,7 @@
     .subtitle { color: var(--text-mid); font-size: 14px; }
 
     /* Nav */
-    .nav-bar { display: flex; gap: 12px; margin-bottom: 20px; }
+    .nav-bar { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
     .nav-link { font-family: var(--mono); font-size: 11px; color: var(--text-dim); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 12px; border: 1px solid var(--border); border-radius: 4px; transition: all 0.15s; }
     .nav-link:hover, .nav-link.active { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
 
@@ -110,6 +110,7 @@
   <div class="nav-bar">
     <a href="index.html" class="nav-link">Dashboard</a>
     <a href="how-it-works.html" class="nav-link active">How It Works</a>
+    <a href="calculations.html" class="nav-link">Calculations</a>
   </div>
 
   <!-- Architecture diagram — clickable icons -->
@@ -122,7 +123,7 @@
         <div class="arch-sublabel">Bills land here</div>
       </a>
       <div class="arch-arrow">→</div>
-      <a href="https://script.google.com/u/0/home/projects/1EAAaPHD24fNYbIq5Vhga8eQUWt4C39P9u6dp7qfes0zs1g4G0Q69CQXJ/edit" class="arch-node" target="_blank">
+      <a href="https://script.google.com/u/0/home/projects/1Jyn4vZQRlYBabMchIkuPTPfOgaEUU54-WYCwWVSaIC2ADmTbGTOMLEhB/edit" class="arch-node" target="_blank">
         <div class="arch-icon">⚙️</div>
         <div class="arch-label">Apps Script</div>
         <div class="arch-sublabel">Orchestration engine</div>
@@ -140,7 +141,7 @@
         <div class="arch-sublabel">Structured data output</div>
       </a>
       <div class="arch-arrow">→</div>
-      <a id="arch-github" href="#" class="arch-node" target="_blank">
+      <a id="arch-github" href="https://github.com/keyona-rerev/TESTER_Resource-Bill-Parser-Github" class="arch-node" target="_blank">
         <div class="arch-icon">🐙</div>
         <div class="arch-label">GitHub Pages</div>
         <div class="arch-sublabel">This dashboard</div>
@@ -303,7 +304,7 @@
       <li><span>Generate the new key from the provider (Anthropic Console, Google AI Studio, or GitHub Settings).</span></li>
       <li><span>Open Apps Script editor → Project Settings → Script Properties.</span></li>
       <li><span>Find the relevant key, click Edit, paste the new value, save.</span></li>
-      <li><span>Run <strong>diagnosConfig()</strong> from the editor to confirm it shows ✓ SET.</span></li>
+      <li><span>Run <strong>diagnosConfig()</strong> from the editor to confirm it shows SET.</span></li>
       <li><span>Revoke the old key from the provider's dashboard.</span></li>
     </ol>
   </div>
@@ -317,13 +318,13 @@
       <dt>m³ (cubic metres)</dt>
       <dd>Unit of volume. Usage for natural gas and water bills is in m³.</dd>
       <dt>Demand (kW)</dt>
-      <dd>Peak power draw during a billing period. Electricity only. Larger properties are billed for peak demand separately from total consumption. Uses the unadjusted Demand kW figure.</dd>
+      <dd>Peak power draw during a billing period. Electricity only. Uses the unadjusted Demand kW figure.</dd>
       <dt>Demand Cost</dt>
       <dd>Charge for peak demand: Distribution + Transmission Network + Transmission Connection - Transformer Allowance (if any).</dd>
       <dt>Ontario Electricity Rebate</dt>
       <dd>Provincial credit on electricity bills. Appears as "CR" and is subtracted when calculating final cost.</dd>
       <dt>This Cost You (Enbridge)</dt>
-      <dd>The natural gas cost field on page 1 of Enbridge bills. Already includes HST. Taken as-is — no additional math applied.</dd>
+      <dd>The natural gas cost field on page 1 of Enbridge bills. Already includes HST. Taken as-is.</dd>
       <dt>Estimation (Yes/No)</dt>
       <dd>Whether the meter reading was estimated by the utility (Yes) or based on an actual read (No).</dd>
       <dt>Review Queue</dt>
@@ -348,7 +349,6 @@
 
 </div>
 <script>
-// Load system links from bills.json and wire up clickable arch diagram
 async function loadLinks() {
   try {
     const res = await fetch('data/bills.json?t=' + Date.now());
