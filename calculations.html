@@ -53,7 +53,7 @@
     .layout {
       position: relative;
       z-index: 1;
-      max-width: 920px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 32px 24px 80px;
     }
@@ -133,7 +133,6 @@
 
     .review-banner-text strong { color: var(--warn); }
 
-    /* Section headers */
     .section { margin-bottom: 48px; }
 
     .section-header {
@@ -158,7 +157,6 @@
       background: var(--border);
     }
 
-    /* Bill type block */
     .bill-block {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -196,7 +194,6 @@
 
     .bill-block-body { padding: 0; }
 
-    /* Calculation row */
     .calc-table {
       width: 100%;
       border-collapse: collapse;
@@ -290,7 +287,6 @@
       margin-bottom: 4px;
     }
 
-    /* Simple field (no calculation) */
     .simple-tag {
       font-family: var(--mono);
       font-size: 10px;
@@ -304,7 +300,6 @@
     .simple-tag.gas-tag { background: var(--warn-dim); color: var(--warn); border-color: rgba(245,166,35,0.2); }
     .simple-tag.water-tag { background: var(--blue-dim); color: var(--blue); border-color: rgba(93,173,226,0.2); }
 
-    /* Notes section */
     .notes-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -387,12 +382,12 @@
               <td>
                 <div class="formula-cell">
                   <span class="simple-tag">direct read</span>
-                  <div class="formula-note">No calculation. Reads "Adjusted kWh Used" directly from the usage table. For Alectra: "Adjusted Usage" row.</div>
+                  <div class="formula-note">Reads "kWh Used" directly from the usage table. Do NOT use Adjusted kWh. For Alectra: "Usage" row (not Adjusted Usage).</div>
                 </div>
               </td>
               <td class="source-cell">
                 <div class="source-label">Usage table</div><br>
-                "Adjusted kWh Used" row. Not the raw meter reads — the adjusted figure after losses.
+                "kWh Used" row. The raw pre-loss-factor figure, not the adjusted value.
               </td>
             </tr>
             <tr>
@@ -400,12 +395,12 @@
               <td>
                 <div class="formula-cell">
                   <span class="simple-tag">direct read</span>
-                  <div class="formula-note">Reads "Adj. kW" from usage table. Returns null for General Service &lt;50kW accounts where demand is not broken out separately.</div>
+                  <div class="formula-note">Reads "Demand kW" from usage table. Do NOT use Adj. kW. Returns null for General Service &lt;50kW accounts where demand is not broken out separately.</div>
                 </div>
               </td>
               <td class="source-cell">
                 <div class="source-label">Usage table</div><br>
-                "Adj. kW" row. For Alectra: "Demand kW" column.
+                "Demand kW" row for Toronto Hydro. For Alectra: "Demand kW" column.
               </td>
             </tr>
             <tr>
@@ -500,14 +495,14 @@
               <td>
                 <div class="formula-cell">
                   <span class="simple-tag gas-tag">direct read</span><br><br>
-                  <span class="formula-var">Total Amount (page 1)</span><br>
+                  <span class="formula-var">"This Cost You" (page 1)</span><br>
                   <span class="formula-op">=</span> <span class="formula-result gas-result">cost</span>
-                  <div class="formula-note">Enbridge's "Total Amount" already includes HST. No additional math is applied — the figure is taken as-is from page 1.</div>
+                  <div class="formula-note">Look for the "This Cost You" label on page 1. This figure already includes HST. Take it as-is — no additional math. Do NOT use Total Amount or Amount Due.</div>
                 </div>
               </td>
               <td class="source-cell">
                 <div class="source-label">Page 1</div><br>
-                "Total Amount" or "Amount Due" on the first page. This figure already includes all taxes.
+                "This Cost You" on the first page. Already includes all taxes.
               </td>
             </tr>
             <tr>
@@ -553,12 +548,12 @@
               <td>
                 <div class="formula-cell">
                   <span class="simple-tag water-tag">direct read</span>
-                  <div class="formula-note">Single consumption value in m³.</div>
+                  <div class="formula-note">Reads either "Consumption" or "Total Consumption" in m³ depending on bill format.</div>
                 </div>
               </td>
               <td class="source-cell">
                 <div class="source-label">Current billing section</div><br>
-                Consumption value in m³.
+                Consumption or Total Consumption value in m³.
               </td>
             </tr>
             <tr>
@@ -573,6 +568,19 @@
               <td class="source-cell">
                 <div class="source-label">Current billing section</div><br>
                 "Water/Sewer Services" current billing amount (not the account balance or arrears).
+              </td>
+            </tr>
+            <tr>
+              <td><span class="field-name water-field">startDate / endDate</span></td>
+              <td>
+                <div class="formula-cell">
+                  <span class="simple-tag water-tag">direct read</span>
+                  <div class="formula-note">Either "Service From" / "Service To" or "Previous Date" / "Current Date" depending on bill format.</div>
+                </div>
+              </td>
+              <td class="source-cell">
+                <div class="source-label">Service period section</div><br>
+                Two date fields that define the billing period. Label varies by bill type.
               </td>
             </tr>
             <tr>
@@ -617,7 +625,7 @@
               </td>
               <td class="source-cell">
                 <div class="source-label">Meter table</div><br>
-                Two rows labeled HM3 and LM3 in the meter reading table. Both are summed.
+                Two rows labeled HM3 and LM3. Both are summed for total m³.
               </td>
             </tr>
             <tr>
@@ -675,6 +683,19 @@
               <td class="source-cell">
                 <div class="source-label">Current Bill section</div><br>
                 Consumption value in m³.
+              </td>
+            </tr>
+            <tr>
+              <td><span class="field-name water-field">startDate / endDate</span></td>
+              <td>
+                <div class="formula-cell">
+                  <span class="simple-tag water-tag">direct read</span>
+                  <div class="formula-note">In the Consumption History table: the SECOND row under Read Date is startDate, the FIRST row under Read Date is endDate.</div>
+                </div>
+              </td>
+              <td class="source-cell">
+                <div class="source-label">Consumption History table</div><br>
+                Read Date column. Row order is counter-intuitive — second row = start, first row = end.
               </td>
             </tr>
             <tr>
@@ -741,7 +762,7 @@
       </div>
       <div class="note-card">
         <div class="note-card-title">Property ID extraction</div>
-        <div class="note-card-body">The system looks for the condo corp number in the billing name block and service address on the bill. If not found there, it checks the PDF filename. Supported formats: MTCC 570, TSCC 2037, YRCC 794, PCC 304.</div>
+        <div class="note-card-body">The system looks for the condo corp number in the billing name block and service address. If not found there, it checks the PDF filename. Supported formats include MTCC, TSCC, YCC, YRCC, YRSCC, PSCC, PCC — and others may exist across Ontario.</div>
       </div>
     </div>
   </div>
