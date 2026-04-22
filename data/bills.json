@@ -1,0 +1,13 @@
+{
+  "last_updated": null,
+  "last_file_added": null,
+  "summary": {
+    "totalProcessed": 0,
+    "electricity": 0,
+    "naturalGas": 0,
+    "water": 0,
+    "pendingReview": 0
+  },
+  "recentBills": [],
+  "reviewQueue": []
+}
