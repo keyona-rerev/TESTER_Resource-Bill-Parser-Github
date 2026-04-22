@@ -1,4 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bill Parser — How It Works</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0f12; --surface: #161920; --surface2: #1e2229; --border: #2a2f3a;
+      --accent: #00e5a0; --accent-dim: rgba(0,229,160,0.12);
+      --warn: #f5a623; --warn-dim: rgba(245,166,35,0.12);
+      --blue: #5dade2; --blue-dim: rgba(93,173,226,0.10);
+      --text: #e8eaf0; --text-dim: #6b7280; --text-mid: #9ca3af;
+      --mono: 'IBM Plex Mono', monospace; --sans: 'IBM Plex Sans', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; font-size: 14px; line-height: 1.6; }
+    body::before { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.012) 2px, rgba(255,255,255,0.012) 4px); pointer-events: none; z-index: 0; }
+    .layout { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+
+    /* SHARED HEADER */
+    .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 32px; gap: 16px; }
+    .header-left {}
+    .logo { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 6px; }
+    h1 { font-family: var(--mono); font-size: 26px; font-weight: 600; letter-spacing: -0.02em; }
+    .header-meta { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin-top: 6px; }
+    .status-pill { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 8px 14px; font-family: var(--mono); font-size: 11px; color: var(--text-mid); white-space: nowrap; flex-shrink: 0; }
+
+    /* SHARED NAV */
+    .nav-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+    .nav-link { font-family: var(--mono); font-size: 11px; color: var(--text-dim); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 12px; border: 1px solid var(--border); border-radius: 4px; transition: all 0.15s; }
+    .nav-link:hover, .nav-link.active { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
+
+    /* SHARED SYS-LINKS */
+    .sys-links { display: flex; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
+    .sys-link { display: flex; align-items: center; gap: 7px; padding: 7px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; font-family: var(--mono); font-size: 11px; color: var(--text-mid); text-decoration: none; transition: all 0.15s; }
+    .sys-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+    .sys-link.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+    .sys-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* PAGE CONTENT */
+    .arch-section { margin-bottom: 40px; }
+    .arch-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 16px; }
+    .arch-grid { display: flex; gap: 12px; flex-wrap: wrap; align-items: stretch; }
+    .arch-node { flex: 1; min-width: 130px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 14px; text-decoration: none; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .arch-node:hover { border-color: var(--accent); background: var(--accent-dim); transform: translateY(-2px); }
+    .arch-node:hover .arch-label { color: var(--accent); }
+    .arch-icon { font-size: 28px; line-height: 1; }
+    .arch-label { font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--text); text-align: center; }
+    .arch-sublabel { font-size: 10px; color: var(--text-dim); text-align: center; line-height: 1.4; }
+    .arch-arrow { display: flex; align-items: center; color: var(--text-dim); font-size: 18px; padding-top: 18px; }
+    @media(max-width:600px){ .arch-arrow{display:none} .arch-node{min-width:100px} }
+    .section { margin-bottom: 40px; }
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .section-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); white-space: nowrap; }
+    .section-line { flex: 1; height: 1px; background: var(--border); }
+    p { color: var(--text-mid); margin-bottom: 12px; font-size: 14px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; margin-bottom: 12px; }
+    .card-title { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .card-body { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+    .card.accent { border-color: rgba(0,229,160,0.3); background: var(--accent-dim); }
+    .card.warn { border-color: rgba(245,166,35,0.3); background: var(--warn-dim); }
+    .card.blue { border-color: rgba(93,173,226,0.3); background: var(--blue-dim); }
+    .tech-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .tech-table th { text-align: left; padding: 8px 12px; color: var(--text-dim); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid var(--border); background: var(--surface); font-family: var(--mono); }
+    .tech-table td { padding: 10px 12px; border-bottom: 1px solid rgba(42,47,58,0.5); color: var(--text-mid); font-size: 13px; vertical-align: top; }
+    .tech-table td:first-child { font-family: var(--mono); font-size: 12px; color: var(--accent); white-space: nowrap; }
+    .tech-table tr:hover td { background: var(--surface2); }
+    .steps-list { counter-reset: steps; list-style: none; }
+    .steps-list li { counter-increment: steps; display: flex; gap: 14px; margin-bottom: 14px; align-items: flex-start; }
+    .steps-list li::before { content: counter(steps); min-width: 24px; height: 24px; background: var(--accent-dim); border: 1px solid var(--accent); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--accent); flex-shrink: 0; margin-top: 1px; }
+    .steps-list li span { color: var(--text-mid); font-size: 13px; line-height: 1.6; }
+    .steps-list li strong { color: var(--text); }
+    .key-list { list-style: none; }
+    .key-list li { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(42,47,58,0.5); font-size: 13px; align-items: baseline; }
+    .key-list li:last-child { border-bottom: none; }
+    .key-name { font-family: var(--mono); font-size: 11px; color: var(--accent); min-width: 220px; flex-shrink: 0; }
+    .key-desc { color: var(--text-mid); }
+    .glossary dt { font-family: var(--mono); font-size: 12px; color: var(--text); font-weight: 600; margin-top: 14px; }
+    .glossary dd { color: var(--text-mid); font-size: 13px; margin-left: 16px; border-left: 2px solid var(--border); padding-left: 12px; margin-top: 4px; }
+    .flow { margin-bottom: 48px; }
+    .flow-steps { display: flex; flex-direction: column; }
+    .flow-step { display: flex; gap: 16px; align-items: flex-start; }
+    .flow-connector { display: flex; flex-direction: column; align-items: center; min-width: 32px; }
+    .flow-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 5px; }
+    .flow-line { width: 1px; flex: 1; background: var(--border); min-height: 24px; }
+    .flow-step:last-child .flow-line { display: none; }
+    .flow-content { padding-bottom: 24px; flex: 1; }
+    .flow-step-label { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .flow-step-desc { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+    footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 10px; color: var(--text-dim); display: flex; justify-content: space-between; }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- SHARED HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="logo">// bill parsing system</div>
+      <h1>How It Works</h1>
+      <div class="header-meta">System overview, reference guide &amp; troubleshooting</div>
+    </div>
+    <div class="status-pill">Reference</div>
+  </div>
+
+  <!-- SHARED NAV -->
+  <div class="nav-bar">
     <a href="index.html" class="nav-link">Dashboard</a>
     <a href="how-it-works.html" class="nav-link active">How It Works</a>
     <a href="calculations.html" class="nav-link">Calculations</a>
     <a href="templates.html" class="nav-link">Templates</a>
+  </div>
+
+  <!-- SHARED SYS-LINKS -->
+  <div class="sys-links">
+    <a id="link-drive" href="#" class="sys-link disabled" target="_blank" title="Available after first run">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 2L2 10.4l4.4 7.6h11.2L22 10.4 17.4 2H6.6zm-.9 15L2 10.4 6.6 3h10.8l4.6 7.4-4.1 7H5.7zm5.3-1.5l-4.1-7.1h8.2l-4.1 7.1z"/></svg>
+      Google Drive
+    </a>
+    <a id="link-sheet" href="#" class="sys-link disabled" target="_blank" title="Available after first run">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+      Google Sheet
+    </a>
+    <a href="https://github.com/keyona-rerev/TESTER_Resource-Bill-Parser-Github" class="sys-link" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85.004 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10.01 10.01 0 0022 12c0-5.52-4.48-10-10-10z"/></svg>
+      GitHub Repo
+    </a>
+    <a href="https://script.google.com/u/0/home/projects/1Jyn4vZQRlYBabMchIkuPTPfOgaEUU54-WYCwWVSaIC2ADmTbGTOMLEhB/edit" class="sys-link" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 11.5c0 .83-.67 1.5-1.5 1.5S12 16.33 12 15.5v-7c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v7zm-4 0c0 .83-.67 1.5-1.5 1.5S8 16.33 8 15.5v-3c0-.83.67-1.5 1.5-1.5S11 11.67 11 12.5v3zm8 0c0 .83-.67 1.5-1.5 1.5S16 16.33 16 15.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5z"/></svg>
+      Apps Script
+    </a>
+  </div>
+
+  <!-- Architecture diagram -->
+  <div class="arch-section">
+    <div class="arch-title">System Components — Click to Open</div>
+    <div class="arch-grid">
+      <a id="arch-drive" href="#" class="arch-node" target="_blank">
+        <div class="arch-icon">📁</div>
+        <div class="arch-label">Google Drive</div>
+        <div class="arch-sublabel">Bills land here</div>
+      </a>
+      <div class="arch-arrow">→</div>
+      <a href="https://script.google.com/u/0/home/projects/1Jyn4vZQRlYBabMchIkuPTPfOgaEUU54-WYCwWVSaIC2ADmTbGTOMLEhB/edit" class="arch-node" target="_blank">
+        <div class="arch-icon">⚙️</div>
+        <div class="arch-label">Apps Script</div>
+        <div class="arch-sublabel">Orchestration engine</div>
+      </a>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node" style="cursor:default">
+        <div class="arch-icon">🤖</div>
+        <div class="arch-label">Claude + Gemini</div>
+        <div class="arch-sublabel">Extract &amp; validate</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <a id="arch-sheet" href="#" class="arch-node" target="_blank">
+        <div class="arch-icon">📊</div>
+        <div class="arch-label">Google Sheet</div>
+        <div class="arch-sublabel">Structured data output</div>
+      </a>
+      <div class="arch-arrow">→</div>
+      <a href="https://github.com/keyona-rerev/TESTER_Resource-Bill-Parser-Github" class="arch-node" target="_blank">
+        <div class="arch-icon">🐙</div>
+        <div class="arch-label">GitHub Pages</div>
+        <div class="arch-sublabel">This dashboard</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Data Flow</div><div class="section-line"></div></div>
+    <div class="flow"><div class="flow-steps">
+      <div class="flow-step"><div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-step-label">1. Bill arrives in Google Drive</div><div class="flow-step-desc">A utility bill PDF is dropped into the designated Drive folder. All bill types go into the same folder. The system identifies the type and provider automatically.</div></div></div>
+      <div class="flow-step"><div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-step-label">2. Apps Script detects the new file</div><div class="flow-step-desc">A time-based trigger runs every 15 minutes, comparing files against a log of already-processed IDs. New files are queued for processing.</div></div></div>
+      <div class="flow-step"><div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-step-label">3. Provider and template checks</div><div class="flow-step-desc">The detected provider is checked against providers.json. The bill's structural layout is fingerprinted and compared against known variants in fingerprints.json. If either is new or unknown, an alert email fires.</div></div></div>
+      <div class="flow-step"><div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-step-label">4. Claude API extracts all data fields</div><div class="flow-step-desc">The full PDF is sent to Claude. It returns structured JSON: bill type, property ID, dates, usage, cost components, estimation flag, demand, demand cost, and layout variant.</div></div></div>
+      <div class="flow-step"><div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-step-label">5. Gemini API independently validates</div><div class="flow-step-desc">The same PDF goes to Gemini with identical instructions but without Claude's output. Gemini reaches its own conclusions independently.</div></div></div>
+      <div class="flow-step"><div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-step-label">6. Outputs are compared and validated</div><div class="flow-step-desc">Numeric values must agree within 2%. Dates must match exactly. Sanity checks run on all required fields regardless of agreement.</div></div></div>
+      <div class="flow-step"><div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-step-label">7a. Agreement → written to Sheet + formula verified</div><div class="flow-step-desc">If both APIs agree and all checks pass, data is written to the correct tab. For electricity, an independent formula check runs: the system recalculates cost from components and compares. Audit Log rows are colored green if matched, red if not.</div></div></div>
+      <div class="flow-step"><div class="flow-connector"><div class="flow-dot" style="background:var(--warn)"></div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-step-label">7b. Disagreement → Review Queue + email alert</div><div class="flow-step-desc">If the APIs disagree or sanity checks fail, the bill goes to Review Queue and an alert email fires with both extracted values side by side.</div></div></div>
+      <div class="flow-step"><div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div><div class="flow-content"><div class="flow-step-label">8. Dashboard updated</div><div class="flow-step-desc">After each run, bills.json is written to this GitHub repo. The dashboard reads it and refreshes every 60 seconds.</div></div></div>
+    </div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Email Alert Types</div><div class="section-line"></div></div>
+    <div class="card warn"><div class="card-title">🔴 Review Required</div><div class="card-body">Fires when Claude and Gemini disagree on any field, or sanity checks fail. Includes both extracted values side by side. Bill is in Review Queue — not written to sheet.</div></div>
+    <div class="card" style="border-color:rgba(155,89,182,0.4);background:rgba(155,89,182,0.08)"><div class="card-title" style="color:#9b59b6">🟣 New Provider Detected</div><div class="card-body">Fires when a bill arrives from a provider not in providers.json. Bill still processes through Gemini validation. Add the provider to providers.json after verifying manually.</div></div>
+    <div class="card" style="border-color:rgba(230,126,34,0.4);background:rgba(230,126,34,0.08)"><div class="card-title" style="color:#e67e22">🟠 Template Variation Detected</div><div class="card-body">Fires when a bill's layout doesn't match any known variant for that provider — either Claude flags it as "unknown," or the structural fingerprint is new. The bill still processes. Check extraction is correct, then the new variant is stored automatically in fingerprints.json.</div></div>
+    <div class="card"><div class="card-title">⚙️ Processing Error</div><div class="card-body">Fires when an unhandled exception occurs during processing. Bill goes to Review Queue. Check Apps Script Execution Log for details.</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Formula Verification</div><div class="section-line"></div></div>
+    <p>After every electricity bill is successfully written to the sheet, an independent verification step runs automatically.</p>
+    <div class="card accent"><div class="card-title">How it works</div><div class="card-body">The system reads Total Electricity Charges, HST, and Ontario Electricity Rebate from the Audit Log. It recalculates: <strong>Cost = Total Elec Charges + HST − Rebate</strong>. If the result matches the Cost written to the Electricity tab (within $0.02 for rounding), the Audit Log row turns green and shows MATCH. If not, it turns red and shows MISMATCH.</div></div>
+    <p style="margin-top:12px">You can also run <strong>Bill Parser → Re-verify All Calculations</strong> from the Google Sheet menu to re-check every electricity row in the Audit Log at any time.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Template Library</div><div class="section-line"></div></div>
+    <p>The <a href="templates.html" style="color:var(--accent)">Templates page</a> shows all known bill formats organized by provider and utility type, with thumbnail images and variant labels. To generate thumbnails, run <strong>Bill Parser → Render Template Thumbnails</strong> from the Google Sheet menu once after setup.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">When a Bill Is Flagged</div><div class="section-line"></div></div>
+    <div class="card warn"><div class="card-title">You will receive an email alert</div><div class="card-body">Subject: <strong>[Bill Parser] Review Required - Row #X - Electricity</strong><br>The email includes the row number, filename, which fields disagreed, and both extracted values side by side.</div></div>
+    <ol class="steps-list" style="margin-top:16px">
+      <li><span><strong>Open the email.</strong> Note the row number and which fields are in conflict.</span></li>
+      <li><span><strong>Open the original bill</strong> using the Drive link in the email.</span></li>
+      <li><span><strong>Look up the correct value</strong> directly from the bill.</span></li>
+      <li><span><strong>Open the Google Sheet → Review Queue tab.</strong> Find the row by number.</span></li>
+      <li><span><strong>Enter correct values</strong> into the appropriate utility tab. Mark the row as RESOLVED.</span></li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Tech Stack</div><div class="section-line"></div></div>
+    <table class="tech-table">
+      <thead><tr><th>Component</th><th>Tool</th><th>Purpose</th><th>Est. Cost</th></tr></thead>
+      <tbody>
+        <tr><td>Orchestration</td><td>Google Apps Script</td><td>Trigger, API calls, Sheet writes, GitHub push</td><td>Free</td></tr>
+        <tr><td>Primary extraction</td><td>Claude API (Anthropic)</td><td>Reads PDF, extracts all data fields + layout variant</td><td>~$0.01–0.03/bill</td></tr>
+        <tr><td>Validation</td><td>Gemini API (Google)</td><td>Independent second read for cross-check</td><td>~$0.001–0.01/bill</td></tr>
+        <tr><td>Data destination</td><td>Google Sheets</td><td>Structured output, one tab per utility type</td><td>Free</td></tr>
+        <tr><td>Source files</td><td>Google Drive</td><td>Bill storage, linked from dashboard</td><td>Free</td></tr>
+        <tr><td>Dashboard</td><td>GitHub Pages</td><td>Live status interface</td><td>Free</td></tr>
+        <tr><td>Email alerts</td><td>Gmail via Apps Script</td><td>Review, provider, template variation, error alerts</td><td>Free</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Security</div><div class="section-line"></div></div>
+    <p>All credentials are stored in <strong>Google Apps Script Script Properties</strong>. No keys are written in code or committed to GitHub.</p>
+    <div class="card blue"><div class="card-title">Keys stored in Script Properties</div><div class="card-body"><ul class="key-list">
+      <li><span class="key-name">CLAUDE_API_KEY</span><span class="key-desc">Anthropic API key for primary extraction</span></li>
+      <li><span class="key-name">GEMINI_API_KEY</span><span class="key-desc">Google Gemini API key for validation</span></li>
+      <li><span class="key-name">GITHUB_TOKEN</span><span class="key-desc">Fine-grained PAT, repo contents:write only</span></li>
+      <li><span class="key-name">GITHUB_REPO</span><span class="key-desc">keyona-rerev/TESTER_Resource-Bill-Parser-Github</span></li>
+      <li><span class="key-name">SHEET_ID</span><span class="key-desc">Google Sheet ID from the URL</span></li>
+      <li><span class="key-name">DRIVE_FOLDER_ID</span><span class="key-desc">Drive folder ID where bills are dropped</span></li>
+      <li><span class="key-name">ALERT_EMAIL</span><span class="key-desc">Email address for all system alerts</span></li>
+    </ul></div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><div class="section-title">Glossary</div><div class="section-line"></div></div>
+    <dl class="glossary">
+      <dt>kWh (kilowatt-hour)</dt><dd>Unit of electricity consumption. Usage is the unadjusted, pre-loss-factor figure labeled "kWh Used."</dd>
+      <dt>m³ (cubic metres)</dt><dd>Unit of volume for natural gas and water bills.</dd>
+      <dt>Demand (kW)</dt><dd>Peak power draw during the billing period. Electricity only. Uses "Demand kW" — not Adj. kW.</dd>
+      <dt>Demand Cost</dt><dd>Distribution + Transmission Network + Transmission Connection − Transformer Allowance (if any).</dd>
+      <dt>Ontario Electricity Rebate</dt><dd>Provincial credit shown as "CR." Subtracted from electricity cost.</dd>
+      <dt>This Cost You (Enbridge)</dt><dd>Natural gas cost on page 1, already including HST. Taken as-is.</dd>
+      <dt>Estimation (Yes/No)</dt><dd>Whether the meter reading was estimated or an actual read.</dd>
+      <dt>Layout Variant</dt><dd>The structural format of a bill as assessed by Claude: standard, rate_change_period, multi_page_charges, estimated_read, tou_pricing, tiered_pricing, or unknown.</dd>
+      <dt>Fingerprint</dt><dd>A structural signature stored in fingerprints.json for each provider/variant combination. Used to detect new or unexpected bill formats.</dd>
+      <dt>Calc Verified</dt><dd>Column in the Audit Log showing MATCH (green) or MISMATCH (red) after the independent formula check runs on electricity bills.</dd>
+      <dt>Review Queue</dt><dd>Sheet tab for bills where the AIs disagreed or checks failed. Nothing writes to utility tabs until manually resolved.</dd>
+      <dt>Audit Log</dt><dd>Complete record of every bill processed, including cost components, layout variant, and formula verification status.</dd>
+    </dl>
+  </div>
+
+  <footer><span>Bill Parsing System v1.0</span><span>Reference guide</span></footer>
+
+</div>
+<script>
+async function loadLinks() {
+  try {
+    const res = await fetch('data/bills.json?t=' + Date.now());
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data.links) return;
+    const { driveFolder, googleSheet } = data.links;
+    if (driveFolder) { document.getElementById('link-drive').href = driveFolder; document.getElementById('link-drive').classList.remove('disabled'); document.getElementById('link-drive').removeAttribute('title'); document.getElementById('arch-drive').href = driveFolder; }
+    if (googleSheet) { document.getElementById('link-sheet').href = googleSheet; document.getElementById('link-sheet').classList.remove('disabled'); document.getElementById('link-sheet').removeAttribute('title'); document.getElementById('arch-sheet').href = googleSheet; }
+  } catch(e) {}
+}
+loadLinks();
+</script>
+</body>
+</html>
