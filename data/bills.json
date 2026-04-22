@@ -5,18 +5,18 @@
     "timestamp": "2026-04-22T02:01:07.910Z",
     "driveLink": "https://drive.google.com/file/d/1HTFfWUZB3qNPGkQap7o4eTE2JSLPAJuK/view?usp=drivesdk"
   },
+  "links": {
+    "driveFolder": "https://drive.google.com/drive/folders/1s3PIbHoz2IPwjw7dGtVMO0C3qLhn6KRI",
+    "googleSheet": "https://docs.google.com/spreadsheets/d/1kG5aQf_hd-lL03U-ucGrHSQnCPF1U0XjokkWeSlqUfY/edit",
+    "githubRepo": "https://github.com/keyona-rerev/TESTER_Resource-Bill-Parser-Github",
+    "dashboard": "https://keyona-rerev.github.io/TESTER_Resource-Bill-Parser-Github"
+  },
   "summary": {
     "totalProcessed": 1,
     "electricity": 1,
     "naturalGas": 0,
     "water": 0,
     "pendingReview": 1
-  },
-  "links": {
-    "driveFolder": "https://drive.google.com/drive/folders/1HTFfWUZB3qNPGkQap7o4eTE2JSLPAJuK",
-    "googleSheet": "",
-    "githubRepo": "https://github.com/keyona-rerev/TESTER_Resource-Bill-Parser-Github",
-    "dashboard": "https://keyona-rerev.github.io/TESTER_Resource-Bill-Parser-Github"
   },
   "recentBills": [
     {
