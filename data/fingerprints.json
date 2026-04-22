@@ -168,5 +168,20 @@
       "filename": "Alectra (Electricty) Sample 1a.pdf",
       "seenAt": "2026-04-22T21:41:58.090Z"
     }
+  ],
+  "Alectra Utilities Corporation": [
+    {
+      "provider": "Alectra Utilities Corporation",
+      "billType": "Electricity",
+      "layoutVariant": "tiered_pricing",
+      "layoutNotes": null,
+      "hasHST": true,
+      "hasRebate": true,
+      "hasDemand": true,
+      "hasTotalElecCharges": true,
+      "estimation": "No",
+      "filename": "Alectra (Electricty) Sample 1a.pdf",
+      "seenAt": "2026-04-22T22:32:53.817Z"
+    }
   ]
 }
