@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bill Parser — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0f12;
+      --surface: #161920;
+      --surface2: #1e2229;
+      --border: #2a2f3a;
+      --accent: #00e5a0;
+      --accent-dim: rgba(0,229,160,0.12);
+      --warn: #f5a623;
+      --warn-dim: rgba(245,166,35,0.12);
+      --danger: #e74c3c;
+      --danger-dim: rgba(231,76,60,0.12);
+      --text: #e8eaf0;
+      --text-dim: #6b7280;
+      --text-mid: #9ca3af;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'IBM Plex Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Grid scan line effect */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(255,255,255,0.012) 2px, rgba(255,255,255,0.012) 4px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .layout {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      gap: 16px;
+    }
+
+    .header-left {}
+
+    .logo {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-family: var(--mono);
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .header-meta {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 6px;
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-mid);
+      white-space: nowrap;
+    }
+
+    .pulse {
+      width: 7px;
+      height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    /* Stats row */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 800px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .stat-card:hover { border-color: var(--accent); }
+
+    .stat-card.warn { border-color: var(--warn); background: var(--warn-dim); }
+    .stat-card.danger { border-color: var(--danger); }
+
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-family: var(--mono);
+      font-size: 30px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .stat-value.accent { color: var(--accent); }
+    .stat-value.warn { color: var(--warn); }
+    .stat-value.danger { color: var(--danger); }
+
+    .stat-sub {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    /* Last file section */
+    .last-file-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .last-file-label {
+      color: var(--text-dim);
+      white-space: nowrap;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .last-file-name {
+      color: var(--accent);
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .last-file-time {
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+
+    /* Section headers */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section-count {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1px 7px;
+    }
+
+    /* Review Queue */
+    .review-section {
+      margin-bottom: 32px;
+    }
+
+    .review-empty {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      color: var(--text-dim);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .review-item {
+      background: var(--warn-dim);
+      border: 1px solid var(--warn);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 8px;
+      display: grid;
+      grid-template-columns: 40px 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .review-row-num {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--warn);
+    }
+
+    .review-info {}
+
+    .review-filename {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .review-reason {
+      font-size: 11px;
+      color: var(--text-mid);
+    }
+
+    .review-date {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+
+    /* Bill log table */
+    .bills-section {
+      margin-bottom: 32px;
+    }
+
+    .bills-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .bills-table th {
+      text-align: left;
+      padding: 8px 12px;
+      color: var(--text-dim);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+      font-weight: 500;
+    }
+
+    .bills-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(42,47,58,0.5);
+      vertical-align: middle;
+    }
+
+    .bills-table tr:hover td {
+      background: var(--surface2);
+    }
+
+    .row-num {
+      color: var(--text-dim);
+      font-size: 11px;
+    }
+
+    .bill-type-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-electricity { background: rgba(52,152,219,0.15); color: #5dade2; border: 1px solid rgba(52,152,219,0.3); }
+    .badge-gas { background: rgba(241,196,15,0.15); color: #f4d03f; border: 1px solid rgba(241,196,15,0.3); }
+    .badge-water { background: rgba(26,188,156,0.15); color: #48c9b0; border: 1px solid rgba(26,188,156,0.3); }
+
+    .outcome-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    .outcome-ok { background: var(--accent-dim); color: var(--accent); }
+    .outcome-flag { background: var(--warn-dim); color: var(--warn); }
+
+    .file-link {
+      color: var(--accent);
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.15s;
+    }
+
+    .file-link:hover { opacity: 1; text-decoration: underline; }
+
+    .no-data {
+      text-align: center;
+      color: var(--text-dim);
+      padding: 32px;
+      font-size: 12px;
+    }
+
+    /* Nav links */
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .nav-link {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: all 0.15s;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    /* Loading state */
+    .loading {
+      text-align: center;
+      padding: 60px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .loading-bar {
+      width: 200px;
+      height: 2px;
+      background: var(--border);
+      margin: 16px auto 0;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .loading-progress {
+      height: 100%;
+      background: var(--accent);
+      animation: loading 1.5s infinite;
+    }
+
+    @keyframes loading {
+      0% { width: 0%; margin-left: 0; }
+      50% { width: 60%; margin-left: 20%; }
+      100% { width: 0%; margin-left: 100%; }
+    }
+
+    .error-state {
+      text-align: center;
+      padding: 40px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--danger);
+    }
+
+    footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+  <div class="header">
+    <div class="header-left">
+      <div class="logo">// bill parsing system</div>
+      <h1>Dashboard</h1>
+      <div class="header-meta" id="last-updated">Loading...</div>
+    </div>
+    <div class="status-pill">
+      <div class="pulse"></div>
+      <span id="status-text">Live</span>
+    </div>
+  </div>
+
+  <div class="nav-links">
+    <a href="index.html" class="nav-link active">Dashboard</a>
+    <a href="how-it-works.html" class="nav-link">How It Works</a>
+  </div>
+
+  <div id="main-content">
+    <div class="loading">
+      Fetching data...
+      <div class="loading-bar"><div class="loading-progress"></div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const DATA_URL = 'data/bills.json';
+const REFRESH_INTERVAL = 60000; // 60 seconds
+
+function formatDate(iso) {
+  if (!iso) return '—';
+  try {
+    return new Date(iso).toLocaleString('en-CA', {
+      month: 'short', day: 'numeric', year: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    });
+  } catch(e) { return iso; }
+}
+
+function formatDateShort(iso) {
+  if (!iso) return '—';
+  try {
+    return new Date(iso).toLocaleString('en-CA', {
+      month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+    });
+  } catch(e) { return iso; }
+}
+
+function getBadgeClass(billType) {
+  if (!billType) return '';
+  const t = billType.toLowerCase();
+  if (t === 'electricity') return 'badge-electricity';
+  if (t === 'naturalgas' || t === 'natural gas') return 'badge-gas';
+  if (t === 'water') return 'badge-water';
+  return '';
+}
+
+function getBadgeLabel(billType) {
+  if (!billType) return '—';
+  if (billType === 'NaturalGas') return 'Gas';
+  return billType;
+}
+
+function renderDashboard(data) {
+  const pending = data.summary.pendingReview;
+  const reviewClass = pending > 0 ? 'warn' : '';
+  const reviewValueClass = pending > 0 ? 'warn' : 'accent';
+
+  let html = '';
+
+  // Stats
+  html += `<div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Total Processed</div>
+      <div class="stat-value accent">${data.summary.totalProcessed}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Electricity</div>
+      <div class="stat-value">${data.summary.electricity}</div>
+      <div class="stat-sub">bills</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Natural Gas</div>
+      <div class="stat-value">${data.summary.naturalGas}</div>
+      <div class="stat-sub">bills</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Water</div>
+      <div class="stat-value">${data.summary.water}</div>
+      <div class="stat-sub">bills</div>
+    </div>
+    <div class="stat-card ${reviewClass}">
+      <div class="stat-label">Pending Review</div>
+      <div class="stat-value ${reviewValueClass}">${pending}</div>
+      <div class="stat-sub">${pending > 0 ? 'action required' : 'all clear'}</div>
+    </div>
+  </div>`;
+
+  // Last file added
+  if (data.lastFileAdded) {
+    const f = data.lastFileAdded;
+    html += `<div class="last-file-bar">
+      <span class="last-file-label">Last file added</span>
+      <a href="${f.driveLink}" class="last-file-name file-link" target="_blank">${f.filename}</a>
+      <span class="last-file-time">${formatDate(f.timestamp)}</span>
+    </div>`;
+  }
+
+  // Review Queue
+  html += `<div class="review-section">
+    <div class="section-header">
+      <div class="section-title">Review Queue</div>
+      <div class="section-line"></div>
+      <div class="section-count">${data.reviewQueue ? data.reviewQueue.length : 0}</div>
+    </div>`;
+
+  if (!data.reviewQueue || data.reviewQueue.length === 0) {
+    html += `<div class="review-empty">✓ No bills pending review</div>`;
+  } else {
+    data.reviewQueue.forEach(item => {
+      html += `<div class="review-item">
+        <div class="review-row-num">#${item.rowNumber}</div>
+        <div class="review-info">
+          <div class="review-filename">
+            <a href="${item.driveLink}" class="file-link" target="_blank">${item.filename}</a>
+          </div>
+          <div class="review-reason">${item.reason}</div>
+        </div>
+        <div class="review-date">${formatDateShort(item.dateFlagged)}</div>
+      </div>`;
+    });
+  }
+  html += `</div>`;
+
+  // Recent Bills Log
+  html += `<div class="bills-section">
+    <div class="section-header">
+      <div class="section-title">Recent Bills</div>
+      <div class="section-line"></div>
+      <div class="section-count">${data.recentBills ? data.recentBills.length : 0} shown</div>
+    </div>`;
+
+  if (!data.recentBills || data.recentBills.length === 0) {
+    html += `<div class="no-data">No bills processed yet.</div>`;
+  } else {
+    html += `<table class="bills-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>File</th>
+          <th>Type</th>
+          <th>Property</th>
+          <th>Processed</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>`;
+
+    data.recentBills.forEach(bill => {
+      const outcomeClass = bill.outcome === 'PROCESSED' ? 'outcome-ok' : 'outcome-flag';
+      const outcomeLabel = bill.outcome === 'PROCESSED' ? '✓ OK' : '⚠ Review';
+      html += `<tr>
+        <td class="row-num">${bill.rowNumber}</td>
+        <td><a href="${bill.driveLink}" class="file-link" target="_blank">${bill.filename}</a></td>
+        <td><span class="bill-type-badge ${getBadgeClass(bill.billType)}">${getBadgeLabel(bill.billType)}</span></td>
+        <td>${bill.property || '—'}</td>
+        <td>${formatDateShort(bill.dateProcessed)}</td>
+        <td><span class="outcome-badge ${outcomeClass}">${outcomeLabel}</span></td>
+      </tr>`;
+    });
+
+    html += `</tbody></table>`;
+  }
+  html += `</div>`;
+
+  // Footer
+  html += `<footer>
+    <span>Bill Parsing System v1.0</span>
+    <span>Last synced: ${formatDate(data.lastUpdated)}</span>
+  </footer>`;
+
+  return html;
+}
+
+async function loadData() {
+  try {
+    const res = await fetch(DATA_URL + '?t=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+
+    document.getElementById('main-content').innerHTML = renderDashboard(data);
+    document.getElementById('last-updated').textContent =
+      'Last updated ' + new Date(data.lastUpdated).toLocaleString('en-CA');
+    document.getElementById('status-text').textContent = 'Live';
+  } catch(e) {
+    if (document.getElementById('main-content').querySelector('.loading')) {
+      document.getElementById('main-content').innerHTML =
+        `<div class="error-state">
+          Could not load dashboard data.<br>
+          <span style="color:var(--text-dim);font-size:11px;margin-top:8px;display:block">
+            ${e.message} — data/bills.json may not exist yet. Run the parser at least once.
+          </span>
+        </div>`;
+    }
+  }
+}
+
+loadData();
+setInterval(loadData, REFRESH_INTERVAL);
+</script>
+</body>
+</html>
