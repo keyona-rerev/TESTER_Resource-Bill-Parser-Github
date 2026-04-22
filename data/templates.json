@@ -1,1 +1,112 @@
-[]
+[
+  {
+    "filename": "Alectra (Electricty) Sample 1a.pdf",
+    "provider": "Alectra",
+    "billType": "Electricity",
+    "variant": "Standard",
+    "label": "Alectra - Electricity Standard",
+    "fileId": "1HTFfWUZB3qNPGkQap7o4eTE2JSLPAJuK",
+    "previewUrl": "https://drive.google.com/file/d/1HTFfWUZB3qNPGkQap7o4eTE2JSLPAJuK/preview",
+    "driveUrl": "https://drive.google.com/file/d/1HTFfWUZB3qNPGkQap7o4eTE2JSLPAJuK/view?usp=drivesdk"
+  },
+  {
+    "filename": "Copy of Toronto Hydro Sample 1.pdf",
+    "provider": "Toronto Hydro",
+    "billType": "Electricity",
+    "variant": "Standard",
+    "label": "Toronto Hydro - Electricity Standard",
+    "fileId": "1s7cG9qH_v8UP2RRSIxqwYA8TKnZXWEl-",
+    "previewUrl": "https://drive.google.com/file/d/1s7cG9qH_v8UP2RRSIxqwYA8TKnZXWEl-/preview",
+    "driveUrl": "https://drive.google.com/file/d/1s7cG9qH_v8UP2RRSIxqwYA8TKnZXWEl-/view?usp=drivesdk"
+  },
+  {
+    "filename": "Copy of Toronto Hydro Sample 2.pdf",
+    "provider": "Toronto Hydro",
+    "billType": "Electricity",
+    "variant": "Rate Change Period",
+    "label": "Toronto Hydro - Rate Change Period",
+    "fileId": "1E8LLK9foYlypkNH7AeoX1sol_htLPOq4",
+    "previewUrl": "https://drive.google.com/file/d/1E8LLK9foYlypkNH7AeoX1sol_htLPOq4/preview",
+    "driveUrl": "https://drive.google.com/file/d/1E8LLK9foYlypkNH7AeoX1sol_htLPOq4/view?usp=drivesdk"
+  },
+  {
+    "filename": "Copy of Toronto Hydro Sample 3.pdf",
+    "provider": "Toronto Hydro",
+    "billType": "Electricity",
+    "variant": "Large Account TOU",
+    "label": "Toronto Hydro - Large Account (TOU)",
+    "fileId": "1uP4jEXPb5Pgr_0x6iqlYSNA78WzOtTuj",
+    "previewUrl": "https://drive.google.com/file/d/1uP4jEXPb5Pgr_0x6iqlYSNA78WzOtTuj/preview",
+    "driveUrl": "https://drive.google.com/file/d/1uP4jEXPb5Pgr_0x6iqlYSNA78WzOtTuj/view?usp=drivesdk"
+  },
+  {
+    "filename": "Copy of Toronto Hydro Sample 4.pdf",
+    "provider": "Toronto Hydro",
+    "billType": "Electricity",
+    "variant": "Small Account <50kW",
+    "label": "Toronto Hydro - Small Account (<50kW)",
+    "fileId": "1uYzpegeF8RJoQU-JEuHb1GcAmlk1Qi4K",
+    "previewUrl": "https://drive.google.com/file/d/1uYzpegeF8RJoQU-JEuHb1GcAmlk1Qi4K/preview",
+    "driveUrl": "https://drive.google.com/file/d/1uYzpegeF8RJoQU-JEuHb1GcAmlk1Qi4K/view?usp=drivesdk"
+  },
+  {
+    "filename": "Copy of Enbridge Sample 1a.pdf",
+    "provider": "Enbridge",
+    "billType": "NaturalGas",
+    "variant": "Standard",
+    "label": "Enbridge - Gas Standard",
+    "fileId": "1PIU2yd67_hERMpwgGg8QzS6bZk5mGoVr",
+    "previewUrl": "https://drive.google.com/file/d/1PIU2yd67_hERMpwgGg8QzS6bZk5mGoVr/preview",
+    "driveUrl": "https://drive.google.com/file/d/1PIU2yd67_hERMpwgGg8QzS6bZk5mGoVr/view?usp=drivesdk"
+  },
+  {
+    "filename": "Copy of Enbridge Sample 1b.pdf",
+    "provider": "Enbridge",
+    "billType": "NaturalGas",
+    "variant": "Estimated Read",
+    "label": "Enbridge - Gas Estimated Read",
+    "fileId": "1thUVZ0CSjCYN9nlRrYuhN2rxDiOP6mvg",
+    "previewUrl": "https://drive.google.com/file/d/1thUVZ0CSjCYN9nlRrYuhN2rxDiOP6mvg/preview",
+    "driveUrl": "https://drive.google.com/file/d/1thUVZ0CSjCYN9nlRrYuhN2rxDiOP6mvg/view?usp=drivesdk"
+  },
+  {
+    "filename": "Copy of Toronto Water Sample 1a.pdf",
+    "provider": "Toronto Water",
+    "billType": "Water",
+    "variant": "Standard",
+    "label": "Toronto Water - Standard",
+    "fileId": "1C73A_SZhYFVXtQ1H0AgO4ZoeA3WgwpEQ",
+    "previewUrl": "https://drive.google.com/file/d/1C73A_SZhYFVXtQ1H0AgO4ZoeA3WgwpEQ/preview",
+    "driveUrl": "https://drive.google.com/file/d/1C73A_SZhYFVXtQ1H0AgO4ZoeA3WgwpEQ/view?usp=drivesdk"
+  },
+  {
+    "filename": "Copy of Toronto Water Sample 2a.pdf",
+    "provider": "Toronto Water",
+    "billType": "Water",
+    "variant": "Estimated + Page 3",
+    "label": "Toronto Water - Estimated (Page 3 Layout)",
+    "fileId": "1ABLdYcjwZBHYPo-3lqvuEeN5zEl_NDTN",
+    "previewUrl": "https://drive.google.com/file/d/1ABLdYcjwZBHYPo-3lqvuEeN5zEl_NDTN/preview",
+    "driveUrl": "https://drive.google.com/file/d/1ABLdYcjwZBHYPo-3lqvuEeN5zEl_NDTN/view?usp=drivesdk"
+  },
+  {
+    "filename": "Copy of Alectra (Water) Sample 1a.pdf",
+    "provider": "Alectra Water",
+    "billType": "Water",
+    "variant": "Standard",
+    "label": "Alectra Water - Standard",
+    "fileId": "1JBG46acw8LQPCZIagj3ZyeedMFzb513E",
+    "previewUrl": "https://drive.google.com/file/d/1JBG46acw8LQPCZIagj3ZyeedMFzb513E/preview",
+    "driveUrl": "https://drive.google.com/file/d/1JBG46acw8LQPCZIagj3ZyeedMFzb513E/view?usp=drivesdk"
+  },
+  {
+    "filename": "Region of Peel Water Sample 1.pdf",
+    "provider": "Region of Peel",
+    "billType": "Water",
+    "variant": "Standard",
+    "label": "Region of Peel - Water Standard",
+    "fileId": "1AXyxDGjr9NPzVaQPCFFEz5PVbxv6eG1W",
+    "previewUrl": "https://drive.google.com/file/d/1AXyxDGjr9NPzVaQPCFFEz5PVbxv6eG1W/preview",
+    "driveUrl": "https://drive.google.com/file/d/1AXyxDGjr9NPzVaQPCFFEz5PVbxv6eG1W/view?usp=drivesdk"
+  }
+]
