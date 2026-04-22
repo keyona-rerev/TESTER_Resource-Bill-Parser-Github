@@ -8,365 +8,94 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0d0f12;
-      --surface: #161920;
-      --surface2: #1e2229;
-      --border: #2a2f3a;
-      --accent: #00e5a0;
-      --accent-dim: rgba(0,229,160,0.10);
-      --warn: #f5a623;
-      --warn-dim: rgba(245,166,35,0.10);
-      --blue: #5dade2;
-      --blue-dim: rgba(93,173,226,0.10);
-      --text: #e8eaf0;
-      --text-dim: #6b7280;
-      --text-mid: #9ca3af;
-      --mono: 'IBM Plex Mono', monospace;
-      --sans: 'IBM Plex Sans', sans-serif;
+      --bg: #0d0f12; --surface: #161920; --surface2: #1e2229; --border: #2a2f3a;
+      --accent: #00e5a0; --accent-dim: rgba(0,229,160,0.10);
+      --warn: #f5a623; --warn-dim: rgba(245,166,35,0.10);
+      --blue: #5dade2; --blue-dim: rgba(93,173,226,0.10);
+      --text: #e8eaf0; --text-dim: #6b7280; --text-mid: #9ca3af;
+      --mono: 'IBM Plex Mono', monospace; --sans: 'IBM Plex Sans', sans-serif;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; font-size: 14px; line-height: 1.7; }
+    body::before { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.012) 2px,rgba(255,255,255,0.012) 4px); pointer-events: none; z-index: 0; }
+    .layout { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 32px 24px 80px; }
+    .header { margin-bottom: 32px; }
+    .logo { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 6px; }
+    h1 { font-family: var(--mono); font-size: 26px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .subtitle { color: var(--text-mid); font-size: 14px; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      min-height: 100vh;
-      font-size: 14px;
-      line-height: 1.7;
-    }
+    /* Nav */
+    .nav-bar { display: flex; gap: 12px; margin-bottom: 20px; }
+    .nav-link { font-family: var(--mono); font-size: 11px; color: var(--text-dim); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 12px; border: 1px solid var(--border); border-radius: 4px; transition: all 0.15s; }
+    .nav-link:hover, .nav-link.active { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg, transparent, transparent 2px,
-        rgba(255,255,255,0.012) 2px, rgba(255,255,255,0.012) 4px
-      );
-      pointer-events: none;
-      z-index: 0;
-    }
+    /* Architecture diagram */
+    .arch-section { margin-bottom: 40px; }
+    .arch-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 16px; }
+    .arch-grid { display: flex; gap: 12px; flex-wrap: wrap; align-items: stretch; }
+    .arch-node { flex: 1; min-width: 130px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 14px; text-decoration: none; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; }
+    .arch-node:hover { border-color: var(--accent); background: var(--accent-dim); transform: translateY(-2px); }
+    .arch-node:hover .arch-icon { color: var(--accent); }
+    .arch-node:hover .arch-label { color: var(--accent); }
+    .arch-icon { font-size: 28px; line-height: 1; }
+    .arch-label { font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--text); text-align: center; letter-spacing: 0.03em; }
+    .arch-sublabel { font-size: 10px; color: var(--text-dim); text-align: center; line-height: 1.4; }
+    .arch-arrow { display: flex; align-items: center; color: var(--text-dim); font-size: 18px; padding-top: 18px; }
+    @media(max-width:600px){ .arch-arrow{display:none} .arch-node{min-width:100px} }
+    .arch-note { margin-top: 12px; font-family: var(--mono); font-size: 10px; color: var(--text-dim); text-align: center; letter-spacing: 0.05em; }
 
-    .layout {
-      position: relative;
-      z-index: 1;
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 32px 24px 80px;
-    }
-
-    .header { margin-bottom: 40px; }
-
-    .logo {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    h1 {
-      font-family: var(--mono);
-      font-size: 26px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-bottom: 6px;
-    }
-
-    .subtitle {
-      color: var(--text-mid);
-      font-size: 14px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 40px;
-    }
-
-    .nav-link {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--text-dim);
-      text-decoration: none;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 6px 12px;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      transition: all 0.15s;
-    }
-
-    .nav-link:hover, .nav-link.active {
-      color: var(--accent);
-      border-color: var(--accent);
-      background: var(--accent-dim);
-    }
-
-    /* Flow diagram */
-    .flow {
-      margin-bottom: 48px;
-    }
-
-    .flow-title {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 16px;
-    }
-
-    .flow-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .flow-step {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-
-    .flow-connector {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-width: 32px;
-    }
-
-    .flow-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
-      margin-top: 5px;
-    }
-
-    .flow-line {
-      width: 1px;
-      flex: 1;
-      background: var(--border);
-      min-height: 24px;
-    }
-
+    /* Flow */
+    .flow { margin-bottom: 48px; }
+    .flow-steps { display: flex; flex-direction: column; }
+    .flow-step { display: flex; gap: 16px; align-items: flex-start; }
+    .flow-connector { display: flex; flex-direction: column; align-items: center; min-width: 32px; }
+    .flow-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 5px; }
+    .flow-line { width: 1px; flex: 1; background: var(--border); min-height: 24px; }
     .flow-step:last-child .flow-line { display: none; }
-
-    .flow-content {
-      padding-bottom: 24px;
-      flex: 1;
-    }
-
-    .flow-step-label {
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
-    .flow-step-desc {
-      font-size: 13px;
-      color: var(--text-mid);
-      line-height: 1.6;
-    }
+    .flow-content { padding-bottom: 24px; flex: 1; }
+    .flow-step-label { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .flow-step-desc { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
 
     /* Sections */
-    .section {
-      margin-bottom: 40px;
-    }
+    .section { margin-bottom: 40px; }
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .section-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); white-space: nowrap; }
+    .section-line { flex: 1; height: 1px; background: var(--border); }
+    h2 { font-family: var(--mono); font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 12px; }
+    p { color: var(--text-mid); margin-bottom: 12px; font-size: 14px; }
 
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      white-space: nowrap;
-    }
-
-    .section-line {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    h2 {
-      font-family: var(--mono);
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 12px;
-    }
-
-    p {
-      color: var(--text-mid);
-      margin-bottom: 12px;
-      font-size: 14px;
-    }
-
-    /* Info cards */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 18px 20px;
-      margin-bottom: 12px;
-    }
-
-    .card-title {
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-
-    .card-body {
-      font-size: 13px;
-      color: var(--text-mid);
-      line-height: 1.6;
-    }
-
+    /* Cards */
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; margin-bottom: 12px; }
+    .card-title { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .card-body { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
     .card.accent { border-color: rgba(0,229,160,0.3); background: var(--accent-dim); }
     .card.warn { border-color: rgba(245,166,35,0.3); background: var(--warn-dim); }
     .card.blue { border-color: rgba(93,173,226,0.3); background: var(--blue-dim); }
 
     /* Tech table */
-    .tech-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      font-family: var(--mono);
-    }
-
-    .tech-table th {
-      text-align: left;
-      padding: 8px 12px;
-      color: var(--text-dim);
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border-bottom: 1px solid var(--border);
-      background: var(--surface);
-    }
-
-    .tech-table td {
-      padding: 10px 12px;
-      border-bottom: 1px solid rgba(42,47,58,0.5);
-      color: var(--text-mid);
-      font-family: var(--sans);
-      font-size: 13px;
-      vertical-align: top;
-    }
-
-    .tech-table td:first-child {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--accent);
-      white-space: nowrap;
-    }
-
+    .tech-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .tech-table th { text-align: left; padding: 8px 12px; color: var(--text-dim); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid var(--border); background: var(--surface); font-family: var(--mono); }
+    .tech-table td { padding: 10px 12px; border-bottom: 1px solid rgba(42,47,58,0.5); color: var(--text-mid); font-size: 13px; vertical-align: top; }
+    .tech-table td:first-child { font-family: var(--mono); font-size: 12px; color: var(--accent); white-space: nowrap; }
     .tech-table tr:hover td { background: var(--surface2); }
 
-    /* Steps list */
-    .steps-list {
-      counter-reset: steps;
-      list-style: none;
-    }
-
-    .steps-list li {
-      counter-increment: steps;
-      display: flex;
-      gap: 14px;
-      margin-bottom: 14px;
-      align-items: flex-start;
-    }
-
-    .steps-list li::before {
-      content: counter(steps);
-      min-width: 24px;
-      height: 24px;
-      background: var(--accent-dim);
-      border: 1px solid var(--accent);
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--accent);
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .steps-list li span {
-      color: var(--text-mid);
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .steps-list li strong {
-      color: var(--text);
-    }
+    /* Steps */
+    .steps-list { counter-reset: steps; list-style: none; }
+    .steps-list li { counter-increment: steps; display: flex; gap: 14px; margin-bottom: 14px; align-items: flex-start; }
+    .steps-list li::before { content: counter(steps); min-width: 24px; height: 24px; background: var(--accent-dim); border: 1px solid var(--accent); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--accent); flex-shrink: 0; margin-top: 1px; }
+    .steps-list li span { color: var(--text-mid); font-size: 13px; line-height: 1.6; }
+    .steps-list li strong { color: var(--text); }
 
     /* Key list */
-    .key-list {
-      list-style: none;
-    }
-
-    .key-list li {
-      display: flex;
-      gap: 10px;
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(42,47,58,0.5);
-      font-size: 13px;
-      align-items: baseline;
-    }
-
+    .key-list { list-style: none; }
+    .key-list li { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(42,47,58,0.5); font-size: 13px; align-items: baseline; }
     .key-list li:last-child { border-bottom: none; }
-
-    .key-name {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--accent);
-      min-width: 220px;
-      flex-shrink: 0;
-    }
-
-    .key-desc {
-      color: var(--text-mid);
-    }
+    .key-name { font-family: var(--mono); font-size: 11px; color: var(--accent); min-width: 220px; flex-shrink: 0; }
+    .key-desc { color: var(--text-mid); }
 
     /* Glossary */
-    .glossary dt {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--text);
-      font-weight: 600;
-      margin-top: 14px;
-    }
-
-    .glossary dd {
-      color: var(--text-mid);
-      font-size: 13px;
-      margin-left: 16px;
-      border-left: 2px solid var(--border);
-      padding-left: 12px;
-      margin-top: 4px;
-    }
+    .glossary dt { font-family: var(--mono); font-size: 12px; color: var(--text); font-weight: 600; margin-top: 14px; }
+    .glossary dd { color: var(--text-mid); font-size: 13px; margin-left: 16px; border-left: 2px solid var(--border); padding-left: 12px; margin-top: 4px; }
   </style>
 </head>
 <body>
@@ -378,25 +107,58 @@
     <div class="subtitle">System overview, reference guide, and troubleshooting</div>
   </div>
 
-  <div class="nav-links">
+  <div class="nav-bar">
     <a href="index.html" class="nav-link">Dashboard</a>
     <a href="how-it-works.html" class="nav-link active">How It Works</a>
   </div>
 
+  <!-- Architecture diagram — clickable icons -->
+  <div class="arch-section">
+    <div class="arch-title">System Components — Click to Open</div>
+    <div class="arch-grid">
+      <a id="arch-drive" href="#" class="arch-node" target="_blank">
+        <div class="arch-icon">📁</div>
+        <div class="arch-label">Google Drive</div>
+        <div class="arch-sublabel">Bills land here</div>
+      </a>
+      <div class="arch-arrow">→</div>
+      <a href="https://script.google.com/u/0/home/projects/1EAAaPHD24fNYbIq5Vhga8eQUWt4C39P9u6dp7qfes0zs1g4G0Q69CQXJ/edit" class="arch-node" target="_blank">
+        <div class="arch-icon">⚙️</div>
+        <div class="arch-label">Apps Script</div>
+        <div class="arch-sublabel">Orchestration engine</div>
+      </a>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node" style="cursor:default">
+        <div class="arch-icon">🤖</div>
+        <div class="arch-label">Claude + Gemini</div>
+        <div class="arch-sublabel">Extract &amp; validate</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <a id="arch-sheet" href="#" class="arch-node" target="_blank">
+        <div class="arch-icon">📊</div>
+        <div class="arch-label">Google Sheet</div>
+        <div class="arch-sublabel">Structured data output</div>
+      </a>
+      <div class="arch-arrow">→</div>
+      <a id="arch-github" href="#" class="arch-node" target="_blank">
+        <div class="arch-icon">🐙</div>
+        <div class="arch-label">GitHub Pages</div>
+        <div class="arch-sublabel">This dashboard</div>
+      </a>
+    </div>
+    <div class="arch-note" id="arch-note" style="display:none">Links loaded from live system data</div>
+  </div>
+
   <!-- Data Flow -->
   <div class="section">
-    <div class="section-header">
-      <div class="section-title">Data Flow</div>
-      <div class="section-line"></div>
-    </div>
-
+    <div class="section-header"><div class="section-title">Data Flow</div><div class="section-line"></div></div>
     <div class="flow">
       <div class="flow-steps">
         <div class="flow-step">
           <div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div>
           <div class="flow-content">
             <div class="flow-step-label">1. Bill arrives in Google Drive</div>
-            <div class="flow-step-desc">A utility bill PDF is dropped into the designated Drive folder. All bill types (electricity, natural gas, water) go into the same folder. The system identifies the type automatically.</div>
+            <div class="flow-step-desc">A utility bill PDF is dropped into the designated Drive folder. All bill types (electricity, natural gas, water) go into the same folder. The system identifies the type and provider automatically.</div>
           </div>
         </div>
         <div class="flow-step">
@@ -409,259 +171,198 @@
         <div class="flow-step">
           <div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div>
           <div class="flow-content">
-            <div class="flow-step-label">3. Claude API extracts all data fields</div>
-            <div class="flow-step-desc">The full PDF is sent to the Claude API (primary extractor). Claude reads all pages and returns a structured JSON with: bill type, property ID, dates, usage, cost, estimation flag, demand, and demand cost.</div>
+            <div class="flow-step-label">3. Provider check against known registry</div>
+            <div class="flow-step-desc">The system checks the detected utility provider against a registry of known providers (providers.json). If the provider is new and unrecognized, a special "New Provider Detected" alert fires for manual review before any data is written.</div>
           </div>
         </div>
         <div class="flow-step">
           <div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div>
           <div class="flow-content">
-            <div class="flow-step-label">4. Grok API independently validates</div>
-            <div class="flow-step-desc">The same PDF is sent to the Grok API with identical instructions but without Claude's output. Grok reaches its own conclusions. This second read catches misreads before they reach the sheet.</div>
+            <div class="flow-step-label">4. Claude API extracts all data fields</div>
+            <div class="flow-step-desc">The full PDF is sent to the Claude API (primary extractor). Claude reads all pages and returns structured JSON: bill type, property ID, dates, usage, cost, estimation flag, demand, and demand cost.</div>
           </div>
         </div>
         <div class="flow-step">
           <div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div>
           <div class="flow-content">
-            <div class="flow-step-label">5. Outputs are compared and validated</div>
-            <div class="flow-step-desc">The system compares both outputs field by field. Numeric values must agree within 2% (to handle rounding). Dates must be exact. Sanity checks run on all required fields regardless.</div>
+            <div class="flow-step-label">5. Gemini API independently validates</div>
+            <div class="flow-step-desc">The same PDF is sent to Google's Gemini API with identical instructions but without Claude's output. Gemini reaches its own conclusions independently, catching misreads before they reach the sheet.</div>
           </div>
         </div>
         <div class="flow-step">
           <div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div>
           <div class="flow-content">
-            <div class="flow-step-label">6a. Agreement → written to Sheet</div>
+            <div class="flow-step-label">6. Outputs are compared and validated</div>
+            <div class="flow-step-desc">The system compares both outputs field by field. Numeric values must agree within 2% (to handle rounding differences). Dates must match exactly. Sanity checks run on all required fields regardless of agreement.</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div>
+          <div class="flow-content">
+            <div class="flow-step-label">7a. Agreement → written to Sheet</div>
             <div class="flow-step-desc">If both APIs agree and all sanity checks pass, the data is written to the correct tab (Electricity, Natural Gas, or Water) with a sequential row number. The Audit Log is updated.</div>
           </div>
         </div>
         <div class="flow-step">
           <div class="flow-connector"><div class="flow-dot" style="background:var(--warn)"></div><div class="flow-line"></div></div>
           <div class="flow-content">
-            <div class="flow-step-label">6b. Disagreement → Review Queue + email alert</div>
-            <div class="flow-step-desc">If the APIs disagree on any field, or sanity checks fail, the bill goes to the Review Queue tab. An email alert fires immediately with the row number, filename, which fields disagreed, and both extracted values.</div>
+            <div class="flow-step-label">7b. Disagreement → Review Queue + email alert</div>
+            <div class="flow-step-desc">If the APIs disagree on any field, or sanity checks fail, the bill goes to the Review Queue tab. An email alert fires immediately with the row number, filename, which fields disagreed, and both extracted values side by side.</div>
           </div>
         </div>
         <div class="flow-step">
           <div class="flow-connector"><div class="flow-dot"></div><div class="flow-line"></div></div>
           <div class="flow-content">
-            <div class="flow-step-label">7. Dashboard updated</div>
-            <div class="flow-step-desc">After each run, the system writes an updated bills.json file to this GitHub repository. This dashboard reads that file and refreshes automatically every 60 seconds.</div>
+            <div class="flow-step-label">8. Dashboard updated</div>
+            <div class="flow-step-desc">After each run, the system writes an updated bills.json to this GitHub repository. The dashboard reads it and refreshes automatically every 60 seconds.</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- New provider detection -->
+  <div class="section">
+    <div class="section-header"><div class="section-title">New Provider Detection</div><div class="section-line"></div></div>
+    <p>The system maintains a registry of known utility providers in <code>data/providers.json</code>. When a bill arrives from a provider not in the registry:</p>
+    <ol class="steps-list">
+      <li><span>The system sends a <strong>New Provider Detected</strong> email with the full extraction result from Claude.</span></li>
+      <li><span><strong>Verify the extracted values</strong> manually against the actual bill.</span></li>
+      <li><span>If correct, <strong>add the provider name</strong> to the <code>known</code> array in <code>data/providers.json</code> in the GitHub repo.</span></li>
+      <li><span>On the next run, the system will trust that provider and process its bills automatically.</span></li>
+    </ol>
+    <div class="card accent" style="margin-top:12px">
+      <div class="card-title">You never need to write new parsing rules</div>
+      <div class="card-body">The AI handles layout variation across providers naturally. The registry just tracks which providers have been verified at least once. After that first confirmation, all future bills from that provider process automatically.</div>
+    </div>
+  </div>
+
   <!-- Tech Stack -->
   <div class="section">
-    <div class="section-header">
-      <div class="section-title">Tech Stack</div>
-      <div class="section-line"></div>
-    </div>
+    <div class="section-header"><div class="section-title">Tech Stack</div><div class="section-line"></div></div>
     <table class="tech-table">
-      <thead>
-        <tr>
-          <th>Component</th>
-          <th>Tool</th>
-          <th>Purpose</th>
-          <th>Est. Cost</th>
-        </tr>
-      </thead>
+      <thead><tr><th>Component</th><th>Tool</th><th>Purpose</th><th>Est. Cost</th></tr></thead>
       <tbody>
-        <tr>
-          <td>Orchestration</td>
-          <td>Google Apps Script</td>
-          <td>Trigger, API calls, Sheet writes, GitHub push</td>
-          <td>Free</td>
-        </tr>
-        <tr>
-          <td>Primary extraction</td>
-          <td>Claude API (Anthropic)</td>
-          <td>Reads PDF, extracts all data fields</td>
-          <td>~$0.01–0.03/bill</td>
-        </tr>
-        <tr>
-          <td>Validation</td>
-          <td>Grok API (xAI)</td>
-          <td>Independent second read for cross-check</td>
-          <td>~$0.01–0.03/bill</td>
-        </tr>
-        <tr>
-          <td>Data destination</td>
-          <td>Google Sheets</td>
-          <td>Structured output, one tab per utility type</td>
-          <td>Free</td>
-        </tr>
-        <tr>
-          <td>Source files</td>
-          <td>Google Drive</td>
-          <td>Bill storage, linked from dashboard</td>
-          <td>Free</td>
-        </tr>
-        <tr>
-          <td>Dashboard</td>
-          <td>GitHub Pages</td>
-          <td>Live status interface (this page)</td>
-          <td>Free</td>
-        </tr>
-        <tr>
-          <td>Version control</td>
-          <td>GitHub</td>
-          <td>Code + dashboard + bills.json</td>
-          <td>Free</td>
-        </tr>
-        <tr>
-          <td>Email alerts</td>
-          <td>Gmail via Apps Script</td>
-          <td>Notifies on Review Queue flags</td>
-          <td>Free</td>
-        </tr>
+        <tr><td>Orchestration</td><td>Google Apps Script</td><td>Trigger, API calls, Sheet writes, GitHub push</td><td>Free</td></tr>
+        <tr><td>Primary extraction</td><td>Claude API (Anthropic)</td><td>Reads PDF, extracts all data fields</td><td>~$0.01–0.03/bill</td></tr>
+        <tr><td>Validation</td><td>Gemini API (Google)</td><td>Independent second read for cross-check</td><td>~$0.001–0.01/bill</td></tr>
+        <tr><td>Data destination</td><td>Google Sheets</td><td>Structured output, one tab per utility type</td><td>Free</td></tr>
+        <tr><td>Source files</td><td>Google Drive</td><td>Bill storage, linked from dashboard</td><td>Free</td></tr>
+        <tr><td>Dashboard</td><td>GitHub Pages</td><td>Live status interface (this page)</td><td>Free</td></tr>
+        <tr><td>Version control</td><td>GitHub</td><td>Code + dashboard + bills.json</td><td>Free</td></tr>
+        <tr><td>Email alerts</td><td>Gmail via Apps Script</td><td>Notifies on Review Queue flags</td><td>Free</td></tr>
       </tbody>
     </table>
   </div>
 
-  <!-- Review Queue process -->
+  <!-- When a bill is flagged -->
   <div class="section">
-    <div class="section-header">
-      <div class="section-title">When a Bill Is Flagged</div>
-      <div class="section-line"></div>
-    </div>
-
+    <div class="section-header"><div class="section-title">When a Bill Is Flagged</div><div class="section-line"></div></div>
     <div class="card warn">
       <div class="card-title">You will receive an email alert</div>
-      <div class="card-body">Subject line: <strong>[Bill Parser] Review Required - Row #X - Electricity</strong><br>
-      The email includes the row number, filename, which fields disagreed, and both extracted values side by side.</div>
+      <div class="card-body">Subject: <strong>[Bill Parser] Review Required - Row #X - Electricity</strong><br>The email includes the row number, filename, which fields disagreed, and both extracted values side by side.</div>
     </div>
-
-    <ol class="steps-list" style="margin-top:16px;">
+    <ol class="steps-list" style="margin-top:16px">
       <li><span><strong>Open the email.</strong> Note the row number and which fields are in conflict.</span></li>
       <li><span><strong>Open the original bill</strong> using the Drive link in the email.</span></li>
-      <li><span><strong>Look up the correct value</strong> directly from the bill for the flagged field(s).</span></li>
-      <li><span><strong>Open the Google Sheet → Review Queue tab.</strong> Find the row by its number.</span></li>
-      <li><span><strong>Manually enter the correct values</strong> into the appropriate utility tab (Electricity, Natural Gas, or Water) using the next available row number.</span></li>
-      <li><span><strong>Update the Review Queue row status</strong> from PENDING to RESOLVED.</span></li>
+      <li><span><strong>Look up the correct value</strong> directly from the bill.</span></li>
+      <li><span><strong>Open the Google Sheet → Review Queue tab.</strong> Find the row by number.</span></li>
+      <li><span><strong>Manually enter correct values</strong> into the appropriate utility tab. Mark the Review Queue row as RESOLVED.</span></li>
     </ol>
-
-    <div class="card accent" style="margin-top:16px;">
-      <div class="card-title">Important: the system never writes wrong data</div>
-      <div class="card-body">A bill sitting in Review Queue is always better than a wrong number written to the sheet. The queue is the intended safety net, not a failure state.</div>
+    <div class="card accent" style="margin-top:16px">
+      <div class="card-title">The system never writes wrong data</div>
+      <div class="card-body">A bill in Review Queue is always better than a wrong number in the sheet. The queue is the intended safety net, not a failure state.</div>
     </div>
   </div>
 
   <!-- Security -->
   <div class="section">
-    <div class="section-header">
-      <div class="section-title">Security</div>
-      <div class="section-line"></div>
-    </div>
-
-    <p>All sensitive credentials are stored in <strong>Google Apps Script Script Properties</strong> — Google's built-in encrypted key-value store. No keys are written in the code or committed to this GitHub repository.</p>
-
+    <div class="section-header"><div class="section-title">Security</div><div class="section-line"></div></div>
+    <p>All sensitive credentials are stored in <strong>Google Apps Script Script Properties</strong> — Google's built-in encrypted key-value store. No keys are written in code or committed to GitHub.</p>
     <div class="card blue">
       <div class="card-title">Keys stored in Script Properties</div>
       <div class="card-body">
         <ul class="key-list">
-          <li><span class="key-name">CLAUDE_API_KEY</span><span class="key-desc">Anthropic API key for Claude extraction</span></li>
-          <li><span class="key-name">GROK_API_KEY</span><span class="key-desc">xAI API key for Grok validation</span></li>
-          <li><span class="key-name">GITHUB_TOKEN</span><span class="key-desc">Fine-grained PAT, repo scope only (contents: write)</span></li>
-          <li><span class="key-name">GITHUB_REPO</span><span class="key-desc">e.g. your-username/bill-parsing-system</span></li>
+          <li><span class="key-name">CLAUDE_API_KEY</span><span class="key-desc">Anthropic API key for primary extraction</span></li>
+          <li><span class="key-name">GEMINI_API_KEY</span><span class="key-desc">Google Gemini API key for validation</span></li>
+          <li><span class="key-name">GITHUB_TOKEN</span><span class="key-desc">Fine-grained PAT, repo contents:write only</span></li>
+          <li><span class="key-name">GITHUB_REPO</span><span class="key-desc">keyona-rerev/TESTER_Resource-Bill-Parser-Github</span></li>
           <li><span class="key-name">SHEET_ID</span><span class="key-desc">Google Sheet ID from the URL</span></li>
           <li><span class="key-name">DRIVE_FOLDER_ID</span><span class="key-desc">Drive folder ID where bills are dropped</span></li>
-          <li><span class="key-name">ALERT_EMAIL</span><span class="key-desc">Email address for Review Queue alerts</span></li>
+          <li><span class="key-name">ALERT_EMAIL</span><span class="key-desc">Email address for all system alerts</span></li>
         </ul>
       </div>
     </div>
-
-    <p style="margin-top:16px;">To set or update a key: open the Apps Script editor → Project Settings → Script Properties. Keys can be rotated at any time without changing any code.</p>
-
-    <p>The GitHub token should be a fine-grained personal access token scoped to only this repository with only <code>contents: write</code> permission. It cannot access any other repos or account settings.</p>
-
-    <p>The GitHub repository should remain <strong>private</strong>. The dashboard (GitHub Pages) can be accessed via the Pages URL regardless of repo visibility if GitHub Pages is enabled on a public repo — keep the repo private and the dashboard will only be visible to those with the URL.</p>
+    <p style="margin-top:16px">To rotate any key: Apps Script editor → Project Settings → Script Properties → edit the value. No code changes needed.</p>
   </div>
 
-  <!-- Rotating API keys -->
+  <!-- Rotating keys -->
   <div class="section">
-    <div class="section-header">
-      <div class="section-title">Rotating API Keys</div>
-      <div class="section-line"></div>
-    </div>
+    <div class="section-header"><div class="section-title">Rotating API Keys</div><div class="section-line"></div></div>
     <ol class="steps-list">
-      <li><span>Generate the new key from the provider's dashboard (Anthropic Console, xAI Console, or GitHub Settings).</span></li>
-      <li><span>Open the Apps Script editor for the Bill Parser project.</span></li>
-      <li><span>Go to <strong>Project Settings → Script Properties</strong>.</span></li>
+      <li><span>Generate the new key from the provider (Anthropic Console, Google AI Studio, or GitHub Settings).</span></li>
+      <li><span>Open Apps Script editor → Project Settings → Script Properties.</span></li>
       <li><span>Find the relevant key, click Edit, paste the new value, save.</span></li>
-      <li><span>Test by running <strong>diagnosConfig()</strong> from the editor to confirm the key is recognized.</span></li>
+      <li><span>Run <strong>diagnosConfig()</strong> from the editor to confirm it shows ✓ SET.</span></li>
       <li><span>Revoke the old key from the provider's dashboard.</span></li>
-    </ol>
-  </div>
-
-  <!-- Adding a new bill type -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-title">Adding a New Bill Type</div>
-      <div class="section-line"></div>
-    </div>
-    <p>When a new utility provider is added to the portfolio:</p>
-    <ol class="steps-list">
-      <li><span><strong>Run a sample bill</strong> through the system. Check the Review Queue to see what fields Claude and Grok extracted.</span></li>
-      <li><span><strong>If extraction is wrong</strong>, open <code>Claude.gs</code> and <code>Grok.gs</code>. Add a provider-specific note in the extraction prompt describing the layout variation for the new provider.</span></li>
-      <li><span><strong>If a new column is needed</strong>, add it to the relevant tab header in <code>Data.gs</code> under <code>HEADERS</code>, and add it to the corresponding row array in <code>writeToSheet()</code>.</span></li>
-      <li><span><strong>Commit the updated code</strong> to GitHub and copy the updated <code>Code.gs</code> into the Apps Script editor. No redeployment needed for time-based triggers.</span></li>
-      <li><span><strong>Test with one bill</strong> of the new type to confirm it processes correctly.</span></li>
     </ol>
   </div>
 
   <!-- Glossary -->
   <div class="section">
-    <div class="section-header">
-      <div class="section-title">Glossary</div>
-      <div class="section-line"></div>
-    </div>
+    <div class="section-header"><div class="section-title">Glossary</div><div class="section-line"></div></div>
     <dl class="glossary">
       <dt>kWh (kilowatt-hour)</dt>
-      <dd>Unit of electricity consumption. The Usage column for electricity bills is measured in kWh.</dd>
-
+      <dd>Unit of electricity consumption. Usage column for electricity bills is in kWh (unadjusted, pre-loss-factor).</dd>
       <dt>m³ (cubic metres)</dt>
-      <dd>Unit of volume. Usage for natural gas and water bills is measured in m³.</dd>
-
+      <dd>Unit of volume. Usage for natural gas and water bills is in m³.</dd>
       <dt>Demand (kW)</dt>
-      <dd>The peak power draw during a billing period, measured in kilowatts. Relevant for electricity bills only. Larger properties are billed separately for their peak demand in addition to total consumption.</dd>
-
+      <dd>Peak power draw during a billing period. Electricity only. Larger properties are billed for peak demand separately from total consumption. Uses the unadjusted Demand kW figure.</dd>
       <dt>Demand Cost</dt>
-      <dd>The charge associated with peak demand. Calculated as: Distribution + Transmission Network Charges + Transmission Connection Charges - Transformer Allowance (if applicable).</dd>
-
+      <dd>Charge for peak demand: Distribution + Transmission Network + Transmission Connection - Transformer Allowance (if any).</dd>
       <dt>Ontario Electricity Rebate</dt>
-      <dd>A provincial credit applied to electricity bills. It appears as a "CR" (credit) and is subtracted when calculating final cost.</dd>
-
+      <dd>Provincial credit on electricity bills. Appears as "CR" and is subtracted when calculating final cost.</dd>
+      <dt>This Cost You (Enbridge)</dt>
+      <dd>The natural gas cost field on page 1 of Enbridge bills. Already includes HST. Taken as-is — no additional math applied.</dd>
       <dt>Estimation (Yes/No)</dt>
-      <dd>Whether the meter reading for this billing period was estimated by the utility (Yes) or based on an actual meter read (No). Estimated bills are flagged so they can be noted as provisional data.</dd>
-
+      <dd>Whether the meter reading was estimated by the utility (Yes) or based on an actual read (No).</dd>
       <dt>Review Queue</dt>
-      <dd>The sheet tab where bills are sent when the two AI systems disagree or sanity checks fail. A bill in Review Queue has not been written to any utility data tab and requires manual entry.</dd>
-
+      <dd>Sheet tab where bills go when the two AIs disagree or sanity checks fail. No data is written to utility tabs until manually resolved.</dd>
       <dt>Audit Log</dt>
-      <dd>A complete record of every bill processed by the system, including outcome (PROCESSED or REVIEW_QUEUE), timestamp, and whether Claude and Grok agreed.</dd>
-
-      <dt>Script Properties</dt>
-      <dd>Google Apps Script's built-in encrypted key-value store. Used to hold all API keys and configuration values. Accessed via Extensions → Apps Script → Project Settings.</dd>
-
+      <dd>Complete record of every bill processed: outcome, timestamp, whether Claude and Gemini agreed.</dd>
+      <dt>providers.json</dt>
+      <dd>Registry of known utility providers in the GitHub repo. When a new provider appears, the system alerts before processing. After you verify and add it to the registry, it processes automatically going forward.</dd>
       <dt>bills.json</dt>
-      <dd>A data file in this GitHub repository written by the Apps Script after each processing run. This dashboard reads it to display current status. It contains summary counts, recent bill log, and Review Queue items.</dd>
+      <dd>Data file written by Apps Script after every run. This dashboard reads it. Contains summary counts, recent bill log, Review Queue items, and system links.</dd>
     </dl>
   </div>
 
-  <!-- Contact -->
+  <!-- Support -->
   <div class="section">
-    <div class="section-header">
-      <div class="section-title">Support</div>
-      <div class="section-line"></div>
-    </div>
+    <div class="section-header"><div class="section-title">Support</div><div class="section-line"></div></div>
     <div class="card">
       <div class="card-title">Technical issues</div>
-      <div class="card-body">Contact your system administrator. For urgent processing failures, check the Apps Script execution log: open the Apps Script editor → Executions (left sidebar) to see the last run output and any error messages.</div>
+      <div class="card-body">For processing failures, open the Apps Script editor → Executions (left sidebar) to see the last run log and any errors.</div>
     </div>
   </div>
 
 </div>
+<script>
+// Load system links from bills.json and wire up clickable arch diagram
+async function loadLinks() {
+  try {
+    const res = await fetch('data/bills.json?t=' + Date.now());
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data.links) return;
+    const { driveFolder, googleSheet, githubRepo } = data.links;
+    if (driveFolder) document.getElementById('arch-drive').href = driveFolder;
+    if (googleSheet) document.getElementById('arch-sheet').href = googleSheet;
+    if (githubRepo) document.getElementById('arch-github').href = githubRepo;
+    document.getElementById('arch-note').style.display = 'block';
+  } catch(e) {}
+}
+loadLinks();
+</script>
 </body>
 </html>
