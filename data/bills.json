@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-22T21:29:51.248Z",
+  "lastUpdated": "2026-04-22T21:42:19.976Z",
   "lastFileAdded": {
     "filename": "Region of Peel Water Sample 1.pdf",
     "timestamp": "2026-04-22T21:27:12.231Z",
@@ -12,13 +12,31 @@
     "dashboard": "https://keyona-rerev.github.io/TESTER_Resource-Bill-Parser-Github"
   },
   "summary": {
-    "totalProcessed": 1,
-    "electricity": 1,
+    "totalProcessed": 3,
+    "electricity": 2,
     "naturalGas": 0,
-    "water": 0,
+    "water": 1,
     "pendingReview": 2
   },
   "recentBills": [
+    {
+      "rowNumber": 5,
+      "filename": "Region of Peel Water Sample 1.pdf",
+      "dateProcessed": "2026-04-22T21:42:17.830Z",
+      "billType": "Water",
+      "property": "PCC 304",
+      "outcome": "PROCESSED",
+      "driveLink": ""
+    },
+    {
+      "rowNumber": 4,
+      "filename": "Alectra (Electricty) Sample 1a.pdf",
+      "dateProcessed": "2026-04-22T21:42:07.279Z",
+      "billType": "Electricity",
+      "property": "YRCC 794",
+      "outcome": "PROCESSED",
+      "driveLink": 55453.99
+    },
     {
       "rowNumber": 3,
       "filename": "Region of Peel Water Sample 1.pdf",
