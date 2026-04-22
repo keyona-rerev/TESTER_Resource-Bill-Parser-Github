@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-04-22T22:42:05.541Z",
+  "lastUpdated": "2026-04-22T23:42:28.947Z",
   "lastFileAdded": {
-    "filename": "Copy of Toronto Water Sample 1a.pdf",
-    "timestamp": "2026-04-22T22:37:16.913Z",
-    "driveLink": "https://drive.google.com/file/d/1C73A_SZhYFVXtQ1H0AgO4ZoeA3WgwpEQ/view?usp=drivesdk"
+    "filename": "fake_toronto_hydro_bill.pdf",
+    "timestamp": "2026-04-22T23:42:07.917Z",
+    "driveLink": "https://drive.google.com/file/d/15VVLEttH6QP61UaX1AT3UYVqb97LEr7F/view?usp=drivesdk"
   },
   "links": {
     "driveFolder": "https://drive.google.com/drive/folders/1s3PIbHoz2IPwjw7dGtVMO0C3qLhn6KRI",
@@ -16,9 +16,18 @@
     "electricity": 4,
     "naturalGas": 2,
     "water": 4,
-    "pendingReview": 1
+    "pendingReview": 2
   },
   "recentBills": [
+    {
+      "rowNumber": 12,
+      "filename": "fake_toronto_hydro_bill.pdf",
+      "dateProcessed": "2026-04-22T23:42:26.822Z",
+      "billType": "Electricity",
+      "property": "TSCC 2401",
+      "outcome": "REVIEW_QUEUE",
+      "driveLink": "https://drive.google.com/file/d/15VVLEttH6QP61UaX1AT3UYVqb97LEr7F/view?usp=drivesdk"
+    },
     {
       "rowNumber": 11,
       "filename": "Copy of Toronto Water Sample 1a.pdf",
@@ -127,6 +136,14 @@
       "billType": "Electricity",
       "reason": "Disagreement: demand: Pass1=302.849 Pass2=281.249",
       "driveLink": "https://drive.google.com/file/d/1E8LLK9foYlypkNH7AeoX1sol_htLPOq4/view?usp=drivesdk"
+    },
+    {
+      "rowNumber": 2,
+      "filename": "fake_toronto_hydro_bill.pdf",
+      "dateFlagged": "2026-04-22T23:42:26.635Z",
+      "billType": "Electricity",
+      "reason": "Disagreement: cost: Pass1=4218.63 Pass2=3752",
+      "driveLink": "https://drive.google.com/file/d/15VVLEttH6QP61UaX1AT3UYVqb97LEr7F/view?usp=drivesdk"
     }
   ]
 }
