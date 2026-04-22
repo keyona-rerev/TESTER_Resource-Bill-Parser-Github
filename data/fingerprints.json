@@ -253,6 +253,19 @@
       "estimation": "No",
       "filename": "Copy of Toronto Hydro Sample 3.pdf",
       "seenAt": "2026-04-22T22:41:15.785Z"
+    },
+    {
+      "provider": "Toronto Hydro-Electric System Limited",
+      "billType": "Electricity",
+      "layoutVariant": "tou_pricing",
+      "layoutNotes": null,
+      "hasHST": true,
+      "hasRebate": true,
+      "hasDemand": true,
+      "hasTotalElecCharges": true,
+      "estimation": "No",
+      "filename": "Copy of Toronto Hydro Sample 4.pdf",
+      "seenAt": "2026-04-22T22:41:38.672Z"
     }
   ]
 }
