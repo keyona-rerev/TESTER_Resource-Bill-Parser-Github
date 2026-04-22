@@ -1,0 +1,25 @@
+{
+  "Toronto Hydro": [
+    { "provider": "Toronto Hydro", "billType": "Electricity", "layoutVariant": "standard", "layoutNotes": null, "hasHST": true, "hasRebate": true, "hasDemand": true, "hasTotalElecCharges": true, "estimation": "No", "filename": "Toronto Hydro Sample 1.pdf", "seenAt": "2026-04-22T00:00:00.000Z" },
+    { "provider": "Toronto Hydro", "billType": "Electricity", "layoutVariant": "rate_change_period", "layoutNotes": "Double line items for electricity and delivery charges spanning a rate change date", "hasHST": true, "hasRebate": true, "hasDemand": true, "hasTotalElecCharges": true, "estimation": "No", "filename": "Toronto Hydro Sample 2.pdf", "seenAt": "2026-04-22T00:00:00.000Z" },
+    { "provider": "Toronto Hydro", "billType": "Electricity", "layoutVariant": "tou_pricing", "layoutNotes": "Time-of-use pricing with on-peak, mid-peak, off-peak tiers. Large account 1000-4999kW.", "hasHST": true, "hasRebate": true, "hasDemand": true, "hasTotalElecCharges": true, "estimation": "No", "filename": "Toronto Hydro Sample 3.pdf", "seenAt": "2026-04-22T00:00:00.000Z" },
+    { "provider": "Toronto Hydro", "billType": "Electricity", "layoutVariant": "tiered_pricing", "layoutNotes": "Small account General Service less than 50kW. No separate demand line. Delivery shown as single total.", "hasHST": true, "hasRebate": true, "hasDemand": false, "hasTotalElecCharges": true, "estimation": "No", "filename": "Toronto Hydro Sample 4.pdf", "seenAt": "2026-04-22T00:00:00.000Z" }
+  ],
+  "Alectra": [
+    { "provider": "Alectra", "billType": "Electricity", "layoutVariant": "standard", "layoutNotes": null, "hasHST": true, "hasRebate": true, "hasDemand": true, "hasTotalElecCharges": true, "estimation": "No", "filename": "Alectra (Electricty) Sample 1a.pdf", "seenAt": "2026-04-22T00:00:00.000Z" }
+  ],
+  "Alectra Water": [
+    { "provider": "Alectra Water", "billType": "Water", "layoutVariant": "standard", "layoutNotes": "Two meter rows (HM3 and LM3) that must be summed for total usage", "hasHST": false, "hasRebate": false, "hasDemand": false, "hasTotalElecCharges": false, "estimation": "No", "filename": "Alectra (Water) Sample 1a.pdf", "seenAt": "2026-04-22T00:00:00.000Z" }
+  ],
+  "Enbridge": [
+    { "provider": "Enbridge", "billType": "NaturalGas", "layoutVariant": "standard", "layoutNotes": null, "hasHST": false, "hasRebate": false, "hasDemand": false, "hasTotalElecCharges": false, "estimation": "No", "filename": "Enbridge Sample 1a.pdf", "seenAt": "2026-04-22T00:00:00.000Z" },
+    { "provider": "Enbridge", "billType": "NaturalGas", "layoutVariant": "estimated_read", "layoutNotes": "Meter reading shows Estimated rather than Actual", "hasHST": false, "hasRebate": false, "hasDemand": false, "hasTotalElecCharges": false, "estimation": "Yes", "filename": "Enbridge Sample 1b.pdf", "seenAt": "2026-04-22T00:00:00.000Z" }
+  ],
+  "Toronto Water": [
+    { "provider": "Toronto Water", "billType": "Water", "layoutVariant": "standard", "layoutNotes": "Service From/To dates. Consumption on page 1.", "hasHST": false, "hasRebate": false, "hasDemand": false, "hasTotalElecCharges": false, "estimation": "No", "filename": "Toronto Water Sample 1a.pdf", "seenAt": "2026-04-22T00:00:00.000Z" },
+    { "provider": "Toronto Water", "billType": "Water", "layoutVariant": "multi_page_charges", "layoutNotes": "Estimated bill. All consumption detail on page 3. Page 2 is generic info.", "hasHST": false, "hasRebate": false, "hasDemand": false, "hasTotalElecCharges": false, "estimation": "Yes", "filename": "Toronto Water Sample 2a.pdf", "seenAt": "2026-04-22T00:00:00.000Z" }
+  ],
+  "Region of Peel": [
+    { "provider": "Region of Peel", "billType": "Water", "layoutVariant": "standard", "layoutNotes": "Dates in Consumption History table are counter-intuitive: second row = startDate, first row = endDate. Cost is three items summed: Water + Wastewater + Stormwater.", "hasHST": false, "hasRebate": false, "hasDemand": false, "hasTotalElecCharges": false, "estimation": "No", "filename": "Region of Peel Water Sample 1.pdf", "seenAt": "2026-04-22T00:00:00.000Z" }
+  ]
+}
