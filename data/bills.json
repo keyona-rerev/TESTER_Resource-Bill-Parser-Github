@@ -1,18 +1,27 @@
 {
-  "lastUpdated": "2026-04-22T02:01:42.312Z",
+  "lastUpdated": "2026-04-22T02:13:38.097Z",
   "lastFileAdded": {
     "filename": "Alectra (Electricty) Sample 1a.pdf",
     "timestamp": "2026-04-22T02:01:07.910Z",
     "driveLink": "https://drive.google.com/file/d/1HTFfWUZB3qNPGkQap7o4eTE2JSLPAJuK/view?usp=drivesdk"
   },
   "summary": {
-    "totalProcessed": 0,
-    "electricity": 0,
+    "totalProcessed": 1,
+    "electricity": 1,
     "naturalGas": 0,
     "water": 0,
     "pendingReview": 1
   },
   "recentBills": [
+    {
+      "rowNumber": 2,
+      "filename": "Alectra (Electricty) Sample 1a.pdf",
+      "dateProcessed": "2026-04-22T02:13:35.963Z",
+      "billType": "Electricity",
+      "property": "YRCC 794",
+      "outcome": "PROCESSED",
+      "driveLink": "https://drive.google.com/file/d/1HTFfWUZB3qNPGkQap7o4eTE2JSLPAJuK/view?usp=drivesdk"
+    },
     {
       "rowNumber": 1,
       "filename": "Alectra (Electricty) Sample 1a.pdf",
