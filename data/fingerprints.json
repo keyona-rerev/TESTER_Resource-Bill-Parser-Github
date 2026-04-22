@@ -182,6 +182,19 @@
       "estimation": "No",
       "filename": "Alectra (Electricty) Sample 1a.pdf",
       "seenAt": "2026-04-22T22:32:53.817Z"
+    },
+    {
+      "provider": "Alectra Utilities Corporation",
+      "billType": "Water",
+      "layoutVariant": "standard",
+      "layoutNotes": null,
+      "hasHST": false,
+      "hasRebate": false,
+      "hasDemand": false,
+      "hasTotalElecCharges": false,
+      "estimation": "No",
+      "filename": "Copy of Alectra (Water) Sample 1a.pdf",
+      "seenAt": "2026-04-22T22:40:13.909Z"
     }
   ],
   "Toronto Water & Solid Waste Management Services": [
