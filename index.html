@@ -26,20 +26,14 @@
     .status-pill { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 8px 14px; font-family: var(--mono); font-size: 11px; color: var(--text-mid); white-space: nowrap; }
     .pulse { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
-
-    /* Nav */
     .nav-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
     .nav-link { font-family: var(--mono); font-size: 11px; color: var(--text-dim); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 12px; border: 1px solid var(--border); border-radius: 4px; transition: all 0.15s; }
     .nav-link:hover, .nav-link.active { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
-
-    /* System links bar */
     .sys-links { display: flex; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
     .sys-link { display: flex; align-items: center; gap: 7px; padding: 7px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; font-family: var(--mono); font-size: 11px; color: var(--text-mid); text-decoration: none; transition: all 0.15s; }
     .sys-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
     .sys-link.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
     .sys-link svg { width: 14px; height: 14px; flex-shrink: 0; }
-
-    /* Stats */
     .stats-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; margin-bottom: 32px; }
     @media(max-width:800px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
     .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; transition: border-color 0.2s; }
@@ -49,20 +43,14 @@
     .stat-value { font-family: var(--mono); font-size: 30px; font-weight: 600; line-height: 1; }
     .stat-value.accent { color: var(--accent); } .stat-value.warn { color: var(--warn); }
     .stat-sub { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
-
-    /* Last file */
     .last-file-bar { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; margin-bottom: 32px; display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: 12px; }
     .last-file-label { color: var(--text-dim); white-space: nowrap; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
     .last-file-name { color: var(--accent); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .last-file-time { color: var(--text-dim); white-space: nowrap; }
-
-    /* Section headers */
     .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
     .section-title { font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); }
     .section-line { flex: 1; height: 1px; background: var(--border); }
     .section-count { font-family: var(--mono); font-size: 11px; color: var(--text-dim); background: var(--surface2); border: 1px solid var(--border); border-radius: 3px; padding: 1px 7px; }
-
-    /* Review Queue */
     .review-section { margin-bottom: 32px; }
     .review-empty { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; text-align: center; color: var(--text-dim); font-family: var(--mono); font-size: 12px; }
     .review-item { background: var(--warn-dim); border: 1px solid var(--warn); border-radius: 8px; padding: 14px 18px; margin-bottom: 8px; display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: center; }
@@ -70,8 +58,6 @@
     .review-filename { font-family: var(--mono); font-size: 12px; color: var(--text); margin-bottom: 2px; }
     .review-reason { font-size: 11px; color: var(--text-mid); }
     .review-date { font-family: var(--mono); font-size: 10px; color: var(--text-dim); white-space: nowrap; }
-
-    /* Bills table */
     .bills-section { margin-bottom: 32px; }
     .bills-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; }
     .bills-table th { text-align: left; padding: 8px 12px; color: var(--text-dim); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid var(--border); font-weight: 500; }
@@ -88,7 +74,6 @@
     .file-link { color: var(--accent); text-decoration: none; opacity: 0.8; transition: opacity 0.15s; }
     .file-link:hover { opacity: 1; text-decoration: underline; }
     .no-data { text-align: center; color: var(--text-dim); padding: 32px; font-size: 12px; }
-
     .loading { text-align: center; padding: 60px; font-family: var(--mono); font-size: 12px; color: var(--text-dim); }
     .loading-bar { width: 200px; height: 2px; background: var(--border); margin: 16px auto 0; border-radius: 2px; overflow: hidden; }
     .loading-progress { height: 100%; background: var(--accent); animation: loading 1.5s infinite; }
@@ -112,14 +97,13 @@
     </div>
   </div>
 
-  <!-- Page nav -->
   <div class="nav-bar">
     <a href="index.html" class="nav-link active">Dashboard</a>
     <a href="how-it-works.html" class="nav-link">How It Works</a>
     <a href="calculations.html" class="nav-link">Calculations</a>
+    <a href="templates.html" class="nav-link">Templates</a>
   </div>
 
-  <!-- System quick-links -->
   <div class="sys-links">
     <a id="link-drive" href="#" class="sys-link disabled" target="_blank" title="Available after first run">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 2L2 10.4l4.4 7.6h11.2L22 10.4 17.4 2H6.6zm-.9 15L2 10.4 6.6 3h10.8l4.6 7.4-4.1 7H5.7zm5.3-1.5l-4.1-7.1h8.2l-4.1 7.1z"/></svg>
@@ -147,84 +131,22 @@
 <script>
 const DATA_URL = 'data/bills.json';
 const REFRESH_INTERVAL = 60000;
-
-function fmt(iso) {
-  if (!iso) return '—';
-  try { return new Date(iso).toLocaleString('en-CA',{month:'short',day:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'}); } catch(e){return iso;}
-}
-function fmtShort(iso) {
-  if (!iso) return '—';
-  try { return new Date(iso).toLocaleString('en-CA',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}); } catch(e){return iso;}
-}
-function badgeClass(t) {
-  if (!t) return '';
-  const l = t.toLowerCase();
-  if (l==='electricity') return 'badge-electricity';
-  if (l==='naturalgas'||l==='natural gas') return 'badge-gas';
-  if (l==='water') return 'badge-water';
-  return '';
-}
+function fmt(iso) { if (!iso) return '—'; try { return new Date(iso).toLocaleString('en-CA',{month:'short',day:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'}); } catch(e){return iso;} }
+function fmtShort(iso) { if (!iso) return '—'; try { return new Date(iso).toLocaleString('en-CA',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}); } catch(e){return iso;} }
+function badgeClass(t) { if (!t) return ''; const l = t.toLowerCase(); if (l==='electricity') return 'badge-electricity'; if (l==='naturalgas'||l==='natural gas') return 'badge-gas'; if (l==='water') return 'badge-water'; return ''; }
 function badgeLabel(t) { if (!t) return '—'; if (t==='NaturalGas') return 'Gas'; return t; }
-
-function renderSysLinks(links) {
-  if (!links) return;
-  const drive = document.getElementById('link-drive');
-  const sheet = document.getElementById('link-sheet');
-  if (links.driveFolder) {
-    drive.href = links.driveFolder;
-    drive.classList.remove('disabled');
-    drive.removeAttribute('title');
-  }
-  if (links.googleSheet) {
-    sheet.href = links.googleSheet;
-    sheet.classList.remove('disabled');
-    sheet.removeAttribute('title');
-  }
-}
-
+function renderSysLinks(links) { if (!links) return; const drive = document.getElementById('link-drive'); const sheet = document.getElementById('link-sheet'); if (links.driveFolder) { drive.href = links.driveFolder; drive.classList.remove('disabled'); drive.removeAttribute('title'); } if (links.googleSheet) { sheet.href = links.googleSheet; sheet.classList.remove('disabled'); sheet.removeAttribute('title'); } }
 function renderDashboard(data) {
   const pending = data.summary.pendingReview;
-  let html = `<div class="stats-grid">
-    <div class="stat-card"><div class="stat-label">Total Processed</div><div class="stat-value accent">${data.summary.totalProcessed}</div></div>
-    <div class="stat-card"><div class="stat-label">Electricity</div><div class="stat-value">${data.summary.electricity}</div><div class="stat-sub">bills</div></div>
-    <div class="stat-card"><div class="stat-label">Natural Gas</div><div class="stat-value">${data.summary.naturalGas}</div><div class="stat-sub">bills</div></div>
-    <div class="stat-card"><div class="stat-label">Water</div><div class="stat-value">${data.summary.water}</div><div class="stat-sub">bills</div></div>
-    <div class="stat-card${pending>0?' warn':''}"><div class="stat-label">Pending Review</div><div class="stat-value${pending>0?' warn':' accent'}">${pending}</div><div class="stat-sub">${pending>0?'action required':'all clear'}</div></div>
-  </div>`;
-
-  if (data.lastFileAdded) {
-    const f = data.lastFileAdded;
-    html += `<div class="last-file-bar"><span class="last-file-label">Last file added</span><a href="${f.driveLink}" class="last-file-name file-link" target="_blank">${f.filename}</a><span class="last-file-time">${fmt(f.timestamp)}</span></div>`;
-  }
-
+  let html = `<div class="stats-grid"><div class="stat-card"><div class="stat-label">Total Processed</div><div class="stat-value accent">${data.summary.totalProcessed}</div></div><div class="stat-card"><div class="stat-label">Electricity</div><div class="stat-value">${data.summary.electricity}</div><div class="stat-sub">bills</div></div><div class="stat-card"><div class="stat-label">Natural Gas</div><div class="stat-value">${data.summary.naturalGas}</div><div class="stat-sub">bills</div></div><div class="stat-card"><div class="stat-label">Water</div><div class="stat-value">${data.summary.water}</div><div class="stat-sub">bills</div></div><div class="stat-card${pending>0?' warn':''}"><div class="stat-label">Pending Review</div><div class="stat-value${pending>0?' warn':' accent'}">${pending}</div><div class="stat-sub">${pending>0?'action required':'all clear'}</div></div></div>`;
+  if (data.lastFileAdded) { const f = data.lastFileAdded; html += `<div class="last-file-bar"><span class="last-file-label">Last file added</span><a href="${f.driveLink}" class="last-file-name file-link" target="_blank">${f.filename}</a><span class="last-file-time">${fmt(f.timestamp)}</span></div>`; }
   html += `<div class="review-section"><div class="section-header"><div class="section-title">Review Queue</div><div class="section-line"></div><div class="section-count">${data.reviewQueue?data.reviewQueue.length:0}</div></div>`;
-  if (!data.reviewQueue||data.reviewQueue.length===0) {
-    html += `<div class="review-empty">✓ No bills pending review</div>`;
-  } else {
-    data.reviewQueue.forEach(item => {
-      html += `<div class="review-item"><div class="review-row-num">#${item.rowNumber}</div><div class="review-info"><div class="review-filename"><a href="${item.driveLink}" class="file-link" target="_blank">${item.filename}</a></div><div class="review-reason">${item.reason}</div></div><div class="review-date">${fmtShort(item.dateFlagged)}</div></div>`;
-    });
-  }
-  html += `</div>`;
-
-  html += `<div class="bills-section"><div class="section-header"><div class="section-title">Recent Bills</div><div class="section-line"></div><div class="section-count">${data.recentBills?data.recentBills.length:0} shown</div></div>`;
-  if (!data.recentBills||data.recentBills.length===0) {
-    html += `<div class="no-data">No bills processed yet.</div>`;
-  } else {
-    html += `<table class="bills-table"><thead><tr><th>#</th><th>File</th><th>Type</th><th>Property</th><th>Processed</th><th>Status</th></tr></thead><tbody>`;
-    data.recentBills.forEach(b => {
-      const oc = b.outcome==='PROCESSED'?'outcome-ok':'outcome-flag';
-      const ol = b.outcome==='PROCESSED'?'✓ OK':'⚠ Review';
-      html += `<tr><td class="row-num">${b.rowNumber}</td><td><a href="${b.driveLink}" class="file-link" target="_blank">${b.filename}</a></td><td><span class="bill-type-badge ${badgeClass(b.billType)}">${badgeLabel(b.billType)}</span></td><td>${b.property||'—'}</td><td>${fmtShort(b.dateProcessed)}</td><td><span class="outcome-badge ${oc}">${ol}</span></td></tr>`;
-    });
-    html += `</tbody></table>`;
-  }
-  html += `</div>`;
-
-  html += `<footer><span>Bill Parsing System v1.0</span><span>Last synced: ${fmt(data.lastUpdated)}</span></footer>`;
+  if (!data.reviewQueue||data.reviewQueue.length===0) { html += `<div class="review-empty">✓ No bills pending review</div>`; } else { data.reviewQueue.forEach(item => { html += `<div class="review-item"><div class="review-row-num">#${item.rowNumber}</div><div class="review-info"><div class="review-filename"><a href="${item.driveLink}" class="file-link" target="_blank">${item.filename}</a></div><div class="review-reason">${item.reason}</div></div><div class="review-date">${fmtShort(item.dateFlagged)}</div></div>`; }); }
+  html += `</div><div class="bills-section"><div class="section-header"><div class="section-title">Recent Bills</div><div class="section-line"></div><div class="section-count">${data.recentBills?data.recentBills.length:0} shown</div></div>`;
+  if (!data.recentBills||data.recentBills.length===0) { html += `<div class="no-data">No bills processed yet.</div>`; } else { html += `<table class="bills-table"><thead><tr><th>#</th><th>File</th><th>Type</th><th>Property</th><th>Processed</th><th>Status</th></tr></thead><tbody>`; data.recentBills.forEach(b => { const oc = b.outcome==='PROCESSED'?'outcome-ok':'outcome-flag'; const ol = b.outcome==='PROCESSED'?'✓ OK':'⚠ Review'; html += `<tr><td class="row-num">${b.rowNumber}</td><td><a href="${b.driveLink}" class="file-link" target="_blank">${b.filename}</a></td><td><span class="bill-type-badge ${badgeClass(b.billType)}">${badgeLabel(b.billType)}</span></td><td>${b.property||'—'}</td><td>${fmtShort(b.dateProcessed)}</td><td><span class="outcome-badge ${oc}">${ol}</span></td></tr>`; }); html += `</tbody></table>`; }
+  html += `</div><footer><span>Bill Parsing System v1.0</span><span>Last synced: ${fmt(data.lastUpdated)}</span></footer>`;
   return html;
 }
-
 async function loadData() {
   try {
     const res = await fetch(DATA_URL + '?t=' + Date.now());
@@ -234,13 +156,8 @@ async function loadData() {
     document.getElementById('last-updated').textContent = 'Last updated ' + fmt(data.lastUpdated);
     document.getElementById('status-text').textContent = 'Live';
     renderSysLinks(data.links);
-  } catch(e) {
-    if (document.getElementById('main-content').querySelector('.loading')) {
-      document.getElementById('main-content').innerHTML = `<div class="error-state">Could not load dashboard data.<br><span style="color:var(--text-dim);font-size:11px;margin-top:8px;display:block">${e.message} — data/bills.json may not exist yet.</span></div>`;
-    }
-  }
+  } catch(e) { if (document.getElementById('main-content').querySelector('.loading')) { document.getElementById('main-content').innerHTML = `<div class="error-state">Could not load dashboard data.<br><span style="color:var(--text-dim);font-size:11px;margin-top:8px;display:block">${e.message} — data/bills.json may not exist yet.</span></div>`; } }
 }
-
 loadData();
 setInterval(loadData, REFRESH_INTERVAL);
 </script>
