@@ -36,6 +36,7 @@
     .sys-links { display: flex; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
     .sys-link { display: flex; align-items: center; gap: 7px; padding: 7px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; font-family: var(--mono); font-size: 11px; color: var(--text-mid); text-decoration: none; transition: all 0.15s; }
     .sys-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+    .sys-link.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
     .sys-link svg { width: 14px; height: 14px; flex-shrink: 0; }
 
     /* Stats */
@@ -111,26 +112,28 @@
     </div>
   </div>
 
+  <!-- Page nav -->
   <div class="nav-bar">
     <a href="index.html" class="nav-link active">Dashboard</a>
     <a href="how-it-works.html" class="nav-link">How It Works</a>
+    <a href="calculations.html" class="nav-link">Calculations</a>
   </div>
 
-  <!-- System quick-links — populated from bills.json links block -->
-  <div class="sys-links" id="sys-links" style="display:none">
-    <a id="link-drive" href="#" class="sys-link" target="_blank">
+  <!-- System quick-links -->
+  <div class="sys-links">
+    <a id="link-drive" href="#" class="sys-link disabled" target="_blank" title="Available after first run">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 2L2 10.4l4.4 7.6h11.2L22 10.4 17.4 2H6.6zm-.9 15L2 10.4 6.6 3h10.8l4.6 7.4-4.1 7H5.7zm5.3-1.5l-4.1-7.1h8.2l-4.1 7.1z"/></svg>
       Google Drive
     </a>
-    <a id="link-sheet" href="#" class="sys-link" target="_blank">
+    <a id="link-sheet" href="#" class="sys-link disabled" target="_blank" title="Available after first run">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
       Google Sheet
     </a>
-    <a id="link-github" href="#" class="sys-link" target="_blank">
+    <a href="https://github.com/keyona-rerev/TESTER_Resource-Bill-Parser-Github" class="sys-link" target="_blank">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85.004 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10.01 10.01 0 0022 12c0-5.52-4.48-10-10-10z"/></svg>
       GitHub Repo
     </a>
-    <a id="link-gas" href="https://script.google.com/u/0/home/projects/1EAAaPHD24fNYbIq5Vhga8eQUWt4C39P9u6dp7qfes0zs1g4G0Q69CQXJ/edit" class="sys-link" target="_blank">
+    <a href="https://script.google.com/u/0/home/projects/1Jyn4vZQRlYBabMchIkuPTPfOgaEUU54-WYCwWVSaIC2ADmTbGTOMLEhB/edit" class="sys-link" target="_blank">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 11.5c0 .83-.67 1.5-1.5 1.5S12 16.33 12 15.5v-7c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v7zm-4 0c0 .83-.67 1.5-1.5 1.5S8 16.33 8 15.5v-3c0-.83.67-1.5 1.5-1.5S11 11.67 11 12.5v3zm8 0c0 .83-.67 1.5-1.5 1.5S16 16.33 16 15.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5z"/></svg>
       Apps Script
     </a>
@@ -165,11 +168,18 @@ function badgeLabel(t) { if (!t) return '—'; if (t==='NaturalGas') return 'Gas
 
 function renderSysLinks(links) {
   if (!links) return;
-  const bar = document.getElementById('sys-links');
-  bar.style.display = 'flex';
-  if (links.driveFolder) document.getElementById('link-drive').href = links.driveFolder;
-  if (links.googleSheet) document.getElementById('link-sheet').href = links.googleSheet;
-  if (links.githubRepo) document.getElementById('link-github').href = links.githubRepo;
+  const drive = document.getElementById('link-drive');
+  const sheet = document.getElementById('link-sheet');
+  if (links.driveFolder) {
+    drive.href = links.driveFolder;
+    drive.classList.remove('disabled');
+    drive.removeAttribute('title');
+  }
+  if (links.googleSheet) {
+    sheet.href = links.googleSheet;
+    sheet.classList.remove('disabled');
+    sheet.removeAttribute('title');
+  }
 }
 
 function renderDashboard(data) {
