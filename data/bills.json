@@ -1,13 +1,13 @@
 {
-  "lastUpdated": "2026-04-22T02:13:38.097Z",
+  "lastUpdated": "2026-04-22T21:29:51.248Z",
   "lastFileAdded": {
-    "filename": "Alectra (Electricty) Sample 1a.pdf",
-    "timestamp": "2026-04-22T02:01:07.910Z",
-    "driveLink": "https://drive.google.com/file/d/1HTFfWUZB3qNPGkQap7o4eTE2JSLPAJuK/view?usp=drivesdk"
+    "filename": "Region of Peel Water Sample 1.pdf",
+    "timestamp": "2026-04-22T21:27:12.231Z",
+    "driveLink": "https://drive.google.com/file/d/1AXyxDGjr9NPzVaQPCFFEz5PVbxv6eG1W/view?usp=drivesdk"
   },
   "links": {
     "driveFolder": "https://drive.google.com/drive/folders/1s3PIbHoz2IPwjw7dGtVMO0C3qLhn6KRI",
-    "googleSheet": "https://docs.google.com/spreadsheets/d/1kG5aQf_hd-lL03U-ucGrHSQnCPF1U0XjokkWeSlqUfY/edit",
+    "googleSheet": "https://docs.google.com/spreadsheets/d/1kG5aQf_hd-lL03U-ucGrHSQnCPF1U0XjokkWeSlqUfY",
     "githubRepo": "https://github.com/keyona-rerev/TESTER_Resource-Bill-Parser-Github",
     "dashboard": "https://keyona-rerev.github.io/TESTER_Resource-Bill-Parser-Github"
   },
@@ -16,9 +16,18 @@
     "electricity": 1,
     "naturalGas": 0,
     "water": 0,
-    "pendingReview": 1
+    "pendingReview": 2
   },
   "recentBills": [
+    {
+      "rowNumber": 3,
+      "filename": "Region of Peel Water Sample 1.pdf",
+      "dateProcessed": "2026-04-22T21:29:48.226Z",
+      "billType": "Water",
+      "property": "PCC 304",
+      "outcome": "REVIEW_QUEUE",
+      "driveLink": ""
+    },
     {
       "rowNumber": 2,
       "filename": "Alectra (Electricty) Sample 1a.pdf",
@@ -46,6 +55,14 @@
       "billType": "Electricity",
       "reason": "Grok API extraction failed",
       "driveLink": "https://drive.google.com/file/d/1HTFfWUZB3qNPGkQap7o4eTE2JSLPAJuK/view?usp=drivesdk"
+    },
+    {
+      "rowNumber": 2,
+      "filename": "Region of Peel Water Sample 1.pdf",
+      "dateFlagged": "2026-04-22T21:29:47.958Z",
+      "billType": "Water",
+      "reason": "Gemini extraction failed",
+      "driveLink": "https://drive.google.com/file/d/1AXyxDGjr9NPzVaQPCFFEz5PVbxv6eG1W/view?usp=drivesdk"
     }
   ]
 }
