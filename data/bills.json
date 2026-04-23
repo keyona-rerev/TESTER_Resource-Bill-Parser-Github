@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-04-23T19:54:42.579Z",
+  "lastUpdated": "2026-04-23T19:57:42.868Z",
   "lastFileAdded": {
-    "filename": "Alectra (Water) Sample 1a.pdf",
-    "timestamp": "2026-04-23T16:59:21.709Z",
-    "driveLink": "https://drive.google.com/file/d/1MkOi7wmHtx6Re209FmJscUcObZaeYC2o/view?usp=drivesdk"
+    "filename": "Region of Peel Water Sample 1.pdf",
+    "timestamp": "2026-04-23T19:57:17.398Z",
+    "driveLink": "https://drive.google.com/file/d/1t197tuLtGbz6eg83DqCVhHlrbpnL2vEJ/view?usp=drivesdk"
   },
   "links": {
     "driveFolder": "https://drive.google.com/drive/folders/1s3PIbHoz2IPwjw7dGtVMO0C3qLhn6KRI",
@@ -12,16 +12,29 @@
     "dashboard": "https://keyona-rerev.github.io/TESTER_Resource-Bill-Parser-Github"
   },
   "summary": {
-    "totalProcessed": 2,
+    "totalProcessed": 3,
     "electricity": 0,
     "naturalGas": 0,
-    "water": 2,
+    "water": 3,
     "pendingReview": 1
   },
   "queue": {
-    "active": false
+    "active": true,
+    "total": 1,
+    "processed": 1,
+    "remaining": 0,
+    "startedAt": "2026-04-23T19:57:23.246Z"
   },
   "recentBills": [
+    {
+      "rowNumber": 4,
+      "filename": "Region of Peel Water Sample 1.pdf",
+      "dateProcessed": "2026-04-23T19:57:39.984Z",
+      "billType": "Water",
+      "property": "PCC 304",
+      "outcome": "PROCESSED",
+      "driveLink": "https://drive.google.com/file/d/1t197tuLtGbz6eg83DqCVhHlrbpnL2vEJ/view?usp=drivesdk"
+    },
     {
       "rowNumber": 3,
       "filename": "Alectra (Water) Sample 1a.pdf",
