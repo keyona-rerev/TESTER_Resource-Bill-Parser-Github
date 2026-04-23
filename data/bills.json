@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-23T20:19:29.612Z",
+  "lastUpdated": "2026-04-23T20:19:35.471Z",
   "lastFileAdded": {
     "filename": "Region of Peel Water Sample 1.pdf",
     "timestamp": "2026-04-23T19:57:17.398Z",
@@ -19,12 +19,7 @@
     "pendingReview": 0
   },
   "queue": {
-    "active": true,
-    "mode": "retry",
-    "total": 1,
-    "processed": 1,
-    "remaining": 0,
-    "startedAt": "2026-04-23T20:19:08.901Z"
+    "active": false
   },
   "recentBills": [
     {
