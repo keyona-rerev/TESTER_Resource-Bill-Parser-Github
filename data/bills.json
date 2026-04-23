@@ -1,6 +1,10 @@
 {
-  "lastUpdated": "2026-04-23T16:45:35.039Z",
-  "lastFileAdded": null,
+  "lastUpdated": "2026-04-23T17:00:20.924Z",
+  "lastFileAdded": {
+    "filename": "Alectra (Water) Sample 1a.pdf",
+    "timestamp": "2026-04-23T16:59:21.709Z",
+    "driveLink": "https://drive.google.com/file/d/1MkOi7wmHtx6Re209FmJscUcObZaeYC2o/view?usp=drivesdk"
+  },
   "links": {
     "driveFolder": "https://drive.google.com/drive/folders/1s3PIbHoz2IPwjw7dGtVMO0C3qLhn6KRI",
     "googleSheet": "https://docs.google.com/spreadsheets/d/1kG5aQf_hd-lL03U-ucGrHSQnCPF1U0XjokkWeSlqUfY",
@@ -8,12 +12,49 @@
     "dashboard": "https://keyona-rerev.github.io/TESTER_Resource-Bill-Parser-Github"
   },
   "summary": {
-    "totalProcessed": 0,
+    "totalProcessed": 2,
     "electricity": 0,
     "naturalGas": 0,
-    "water": 0,
-    "pendingReview": 0
+    "water": 2,
+    "pendingReview": 1
   },
-  "recentBills": [],
-  "reviewQueue": []
+  "recentBills": [
+    {
+      "rowNumber": 3,
+      "filename": "Alectra (Water) Sample 1a.pdf",
+      "dateProcessed": "2026-04-23T17:00:17.923Z",
+      "billType": "Water",
+      "property": "YRCC 794",
+      "outcome": "REVIEW_QUEUE",
+      "driveLink": "https://drive.google.com/file/d/1MkOi7wmHtx6Re209FmJscUcObZaeYC2o/view?usp=drivesdk"
+    },
+    {
+      "rowNumber": 2,
+      "filename": "Toronto Water Sample 1a.pdf",
+      "dateProcessed": "2026-04-23T17:00:06.653Z",
+      "billType": "Water",
+      "property": "2000 ISLINGTON AVE",
+      "outcome": "PROCESSED",
+      "driveLink": "https://drive.google.com/file/d/1ao_RS992x6iPrm-gTB5BC5XLQXMzzkLP/view?usp=drivesdk"
+    },
+    {
+      "rowNumber": 1,
+      "filename": "Toronto Water Sample 2a.pdf",
+      "dateProcessed": "2026-04-23T16:59:50.507Z",
+      "billType": "Water",
+      "property": "MTCC 678",
+      "outcome": "PROCESSED",
+      "driveLink": "https://drive.google.com/file/d/1RjNGkdaFd0vQNPR-Cvf5CrqJJ61hF8hJ/view?usp=drivesdk"
+    }
+  ],
+  "reviewQueue": [
+    {
+      "rowNumber": 1,
+      "filename": "Alectra (Water) Sample 1a.pdf",
+      "dateFlagged": "2026-04-23T17:00:17.570Z",
+      "billType": "Water",
+      "reason": "Verification pass failed",
+      "driveLink": "https://drive.google.com/file/d/1MkOi7wmHtx6Re209FmJscUcObZaeYC2o/view?usp=drivesdk"
+    }
+  ]
 }
