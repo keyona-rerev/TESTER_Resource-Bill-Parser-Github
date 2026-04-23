@@ -1,11 +1,5 @@
 {
-  "known": [
-    "Toronto Hydro",
-    "Alectra",
-    "Enbridge",
-    "Toronto Water",
-    "Region of Peel"
-  ],
+  "known": [],
   "new_provider_alert": true,
   "_note": "Add new provider names to the 'known' array after verifying the first bill manually. Provider names must match exactly what the AI extracts from the bill."
 }
