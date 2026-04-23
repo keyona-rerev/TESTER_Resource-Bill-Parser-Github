@@ -43,5 +43,20 @@
       "filename": "Alectra (Water) Sample 1a.pdf",
       "seenAt": "2026-04-23T17:00:13.652Z"
     }
+  ],
+  "Region of Peel": [
+    {
+      "provider": "Region of Peel",
+      "billType": "Water",
+      "layoutVariant": "standard",
+      "layoutNotes": null,
+      "hasHST": false,
+      "hasRebate": false,
+      "hasDemand": false,
+      "hasTotalElecCharges": false,
+      "estimation": "No",
+      "filename": "Region of Peel Water Sample 1.pdf",
+      "seenAt": "2026-04-23T19:57:28.949Z"
+    }
   ]
 }
