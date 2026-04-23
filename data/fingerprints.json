@@ -13,5 +13,20 @@
       "filename": "Toronto Water Sample 2a.pdf",
       "seenAt": "2026-04-23T16:59:41.403Z"
     }
+  ],
+  "Toronto Water & Solid Waste Management Services": [
+    {
+      "provider": "Toronto Water & Solid Waste Management Services",
+      "billType": "Water",
+      "layoutVariant": "standard",
+      "layoutNotes": null,
+      "hasHST": false,
+      "hasRebate": false,
+      "hasDemand": false,
+      "hasTotalElecCharges": false,
+      "estimation": "No",
+      "filename": "Toronto Water Sample 1a.pdf",
+      "seenAt": "2026-04-23T16:59:57.366Z"
+    }
   ]
 }
