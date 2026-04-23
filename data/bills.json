@@ -1,10 +1,6 @@
 {
-  "lastUpdated": "2026-04-22T23:48:12.102Z",
-  "lastFileAdded": {
-    "filename": "fake_toronto_hydro_bill_v2.pdf",
-    "timestamp": "2026-04-22T23:47:44.274Z",
-    "driveLink": "https://drive.google.com/file/d/1vECEhxaKxCaMFCkVPVyUME3EY5sw7gSA/view?usp=drivesdk"
-  },
+  "lastUpdated": "2026-04-23T16:45:35.039Z",
+  "lastFileAdded": null,
   "links": {
     "driveFolder": "https://drive.google.com/drive/folders/1s3PIbHoz2IPwjw7dGtVMO0C3qLhn6KRI",
     "googleSheet": "https://docs.google.com/spreadsheets/d/1kG5aQf_hd-lL03U-ucGrHSQnCPF1U0XjokkWeSlqUfY",
@@ -12,147 +8,12 @@
     "dashboard": "https://keyona-rerev.github.io/TESTER_Resource-Bill-Parser-Github"
   },
   "summary": {
-    "totalProcessed": 11,
-    "electricity": 5,
-    "naturalGas": 2,
-    "water": 4,
-    "pendingReview": 2
+    "totalProcessed": 0,
+    "electricity": 0,
+    "naturalGas": 0,
+    "water": 0,
+    "pendingReview": 0
   },
-  "recentBills": [
-    {
-      "rowNumber": 13,
-      "filename": "fake_toronto_hydro_bill_v2.pdf",
-      "dateProcessed": "2026-04-22T23:48:07.016Z",
-      "billType": "Electricity",
-      "property": "TSCC 2401",
-      "outcome": "PROCESSED",
-      "driveLink": "https://drive.google.com/file/d/1vECEhxaKxCaMFCkVPVyUME3EY5sw7gSA/view?usp=drivesdk"
-    },
-    {
-      "rowNumber": 12,
-      "filename": "fake_toronto_hydro_bill.pdf",
-      "dateProcessed": "2026-04-22T23:42:26.822Z",
-      "billType": "Electricity",
-      "property": "TSCC 2401",
-      "outcome": "REVIEW_QUEUE",
-      "driveLink": "https://drive.google.com/file/d/15VVLEttH6QP61UaX1AT3UYVqb97LEr7F/view?usp=drivesdk"
-    },
-    {
-      "rowNumber": 11,
-      "filename": "Copy of Toronto Water Sample 1a.pdf",
-      "dateProcessed": "2026-04-22T22:42:04.011Z",
-      "billType": "Water",
-      "property": "2000 ISLINGTON AVE",
-      "outcome": "PROCESSED",
-      "driveLink": "https://drive.google.com/file/d/1C73A_SZhYFVXtQ1H0AgO4ZoeA3WgwpEQ/view?usp=drivesdk"
-    },
-    {
-      "rowNumber": 10,
-      "filename": "Copy of Toronto Hydro Sample 4.pdf",
-      "dateProcessed": "2026-04-22T22:41:51.199Z",
-      "billType": "Electricity",
-      "property": "MTCC 1349",
-      "outcome": "PROCESSED",
-      "driveLink": "https://drive.google.com/file/d/1uYzpegeF8RJoQU-JEuHb1GcAmlk1Qi4K/view?usp=drivesdk"
-    },
-    {
-      "rowNumber": 9,
-      "filename": "Copy of Toronto Hydro Sample 3.pdf",
-      "dateProcessed": "2026-04-22T22:41:26.964Z",
-      "billType": "Electricity",
-      "property": "TSCC 2037",
-      "outcome": "PROCESSED",
-      "driveLink": "https://drive.google.com/file/d/1uP4jEXPb5Pgr_0x6iqlYSNA78WzOtTuj/view?usp=drivesdk"
-    },
-    {
-      "rowNumber": 8,
-      "filename": "Copy of Enbridge Sample 1b.pdf",
-      "dateProcessed": "2026-04-22T22:41:03.677Z",
-      "billType": "NaturalGas",
-      "property": "MTCC 678",
-      "outcome": "PROCESSED",
-      "driveLink": "https://drive.google.com/file/d/1thUVZ0CSjCYN9nlRrYuhN2rxDiOP6mvg/view?usp=drivesdk"
-    },
-    {
-      "rowNumber": 7,
-      "filename": "Copy of Toronto Hydro Sample 1.pdf",
-      "dateProcessed": "2026-04-22T22:40:54.596Z",
-      "billType": "Electricity",
-      "property": "MTCC 570",
-      "outcome": "PROCESSED",
-      "driveLink": "https://drive.google.com/file/d/1s7cG9qH_v8UP2RRSIxqwYA8TKnZXWEl-/view?usp=drivesdk"
-    },
-    {
-      "rowNumber": 6,
-      "filename": "Copy of Enbridge Sample 1a.pdf",
-      "dateProcessed": "2026-04-22T22:40:31.979Z",
-      "billType": "NaturalGas",
-      "property": "MTCC 570",
-      "outcome": "PROCESSED",
-      "driveLink": "https://drive.google.com/file/d/1PIU2yd67_hERMpwgGg8QzS6bZk5mGoVr/view?usp=drivesdk"
-    },
-    {
-      "rowNumber": 5,
-      "filename": "Copy of Alectra (Water) Sample 1a.pdf",
-      "dateProcessed": "2026-04-22T22:40:21.381Z",
-      "billType": "Water",
-      "property": "YRCC 794",
-      "outcome": "PROCESSED",
-      "driveLink": "https://drive.google.com/file/d/1JBG46acw8LQPCZIagj3ZyeedMFzb513E/view?usp=drivesdk"
-    },
-    {
-      "rowNumber": 4,
-      "filename": "Copy of Toronto Hydro Sample 2.pdf",
-      "dateProcessed": "2026-04-22T22:40:07.659Z",
-      "billType": "Electricity",
-      "property": "MTCC 570",
-      "outcome": "REVIEW_QUEUE",
-      "driveLink": "https://drive.google.com/file/d/1E8LLK9foYlypkNH7AeoX1sol_htLPOq4/view?usp=drivesdk"
-    },
-    {
-      "rowNumber": 3,
-      "filename": "Copy of Toronto Water Sample 2a.pdf",
-      "dateProcessed": "2026-04-22T22:39:38.189Z",
-      "billType": "Water",
-      "property": "MTCC 678",
-      "outcome": "PROCESSED",
-      "driveLink": "https://drive.google.com/file/d/1ABLdYcjwZBHYPo-3lqvuEeN5zEl_NDTN/view?usp=drivesdk"
-    },
-    {
-      "rowNumber": 2,
-      "filename": "Region of Peel Water Sample 1.pdf",
-      "dateProcessed": "2026-04-22T22:33:17.989Z",
-      "billType": "Water",
-      "property": "PCC 304",
-      "outcome": "PROCESSED",
-      "driveLink": "https://drive.google.com/file/d/1AXyxDGjr9NPzVaQPCFFEz5PVbxv6eG1W/view?usp=drivesdk"
-    },
-    {
-      "rowNumber": 1,
-      "filename": "Alectra (Electricty) Sample 1a.pdf",
-      "dateProcessed": "2026-04-22T22:33:07.685Z",
-      "billType": "Electricity",
-      "property": "YRCC 794",
-      "outcome": "PROCESSED",
-      "driveLink": "https://drive.google.com/file/d/1HTFfWUZB3qNPGkQap7o4eTE2JSLPAJuK/view?usp=drivesdk"
-    }
-  ],
-  "reviewQueue": [
-    {
-      "rowNumber": 1,
-      "filename": "Copy of Toronto Hydro Sample 2.pdf",
-      "dateFlagged": "2026-04-22T22:40:07.005Z",
-      "billType": "Electricity",
-      "reason": "Disagreement: demand: Pass1=302.849 Pass2=281.249",
-      "driveLink": "https://drive.google.com/file/d/1E8LLK9foYlypkNH7AeoX1sol_htLPOq4/view?usp=drivesdk"
-    },
-    {
-      "rowNumber": 2,
-      "filename": "fake_toronto_hydro_bill.pdf",
-      "dateFlagged": "2026-04-22T23:42:26.635Z",
-      "billType": "Electricity",
-      "reason": "Disagreement: cost: Pass1=4218.63 Pass2=3752",
-      "driveLink": "https://drive.google.com/file/d/15VVLEttH6QP61UaX1AT3UYVqb97LEr7F/view?usp=drivesdk"
-    }
-  ]
+  "recentBills": [],
+  "reviewQueue": []
 }
