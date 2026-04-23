@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-23T17:00:20.924Z",
+  "lastUpdated": "2026-04-23T19:54:42.579Z",
   "lastFileAdded": {
     "filename": "Alectra (Water) Sample 1a.pdf",
     "timestamp": "2026-04-23T16:59:21.709Z",
@@ -17,6 +17,9 @@
     "naturalGas": 0,
     "water": 2,
     "pendingReview": 1
+  },
+  "queue": {
+    "active": false
   },
   "recentBills": [
     {
