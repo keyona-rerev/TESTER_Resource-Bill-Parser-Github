@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-23T19:57:46.001Z",
+  "lastUpdated": "2026-04-23T20:19:29.612Z",
   "lastFileAdded": {
     "filename": "Region of Peel Water Sample 1.pdf",
     "timestamp": "2026-04-23T19:57:17.398Z",
@@ -12,16 +12,30 @@
     "dashboard": "https://keyona-rerev.github.io/TESTER_Resource-Bill-Parser-Github"
   },
   "summary": {
-    "totalProcessed": 3,
+    "totalProcessed": 4,
     "electricity": 0,
     "naturalGas": 0,
-    "water": 3,
-    "pendingReview": 1
+    "water": 4,
+    "pendingReview": 0
   },
   "queue": {
-    "active": false
+    "active": true,
+    "mode": "retry",
+    "total": 1,
+    "processed": 1,
+    "remaining": 0,
+    "startedAt": "2026-04-23T20:19:08.901Z"
   },
   "recentBills": [
+    {
+      "rowNumber": 5,
+      "filename": "Alectra (Water) Sample 1a.pdf",
+      "dateProcessed": "2026-04-23T20:19:25.584Z",
+      "billType": "Water",
+      "property": "YRCC 794",
+      "outcome": "PROCESSED",
+      "driveLink": "https://drive.google.com/file/d/1MkOi7wmHtx6Re209FmJscUcObZaeYC2o/view?usp=drivesdk"
+    },
     {
       "rowNumber": 4,
       "filename": "Region of Peel Water Sample 1.pdf",
@@ -59,14 +73,5 @@
       "driveLink": "https://drive.google.com/file/d/1RjNGkdaFd0vQNPR-Cvf5CrqJJ61hF8hJ/view?usp=drivesdk"
     }
   ],
-  "reviewQueue": [
-    {
-      "rowNumber": 1,
-      "filename": "Alectra (Water) Sample 1a.pdf",
-      "dateFlagged": "2026-04-23T17:00:17.570Z",
-      "billType": "Water",
-      "reason": "Verification pass failed",
-      "driveLink": "https://drive.google.com/file/d/1MkOi7wmHtx6Re209FmJscUcObZaeYC2o/view?usp=drivesdk"
-    }
-  ]
+  "reviewQueue": []
 }
