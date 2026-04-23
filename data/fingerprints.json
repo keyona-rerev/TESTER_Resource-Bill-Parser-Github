@@ -1,1 +1,17 @@
-{}
+{
+  "Toronto Water": [
+    {
+      "provider": "Toronto Water",
+      "billType": "Water",
+      "layoutVariant": "estimated_read",
+      "layoutNotes": "Bill marked as estimated water bill based on prior water usage. Compound meter with Large and Small dials.",
+      "hasHST": false,
+      "hasRebate": false,
+      "hasDemand": false,
+      "hasTotalElecCharges": false,
+      "estimation": "Yes",
+      "filename": "Toronto Water Sample 2a.pdf",
+      "seenAt": "2026-04-23T16:59:41.403Z"
+    }
+  ]
+}
